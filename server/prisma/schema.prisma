@@ -1,0 +1,156 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ROLE {
+  SUPERADMIN
+  ADMIN
+  USER
+}
+
+model User {
+  id                     String    @id @default(uuid())
+  name                   String
+  email                  String    @unique
+  role                   ROLE
+  googleId               String?   @unique
+  facebookId             String?   @unique
+  twitterId              String?   @unique
+  avatar                 String?
+  password               String?
+  resetPasswordToken     String?
+  resetPasswordTokenExpiresAt DateTime?
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+
+  reports      Report[]
+
+  calls        Call[]
+  reservations Reservation[]
+  Donation     Donation[]
+}
+
+model Donor {
+  id                 String    @id @default(uuid())
+  phone_number1      String?
+  network_provider1  String?
+  phone_number2      String?
+  network_provider2  String?
+  dob                DateTime?
+  email              String?   @unique
+  job_title          String?
+  job_details        String?
+  province           String?
+  city               String?
+  area               String?
+  donor_conditions   String?
+  ready_to_volunteer Boolean   @default(false)
+  permanent_deferral Boolean   @default(false)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  location     Location?       @relation(fields: [location_id], references: [id])
+  location_id  String?
+  calls        Call[]
+  reservations Reservation[]
+  donations    Donation[]
+  deferrals    DonorDeferral[]
+}
+
+model Donation {
+  id                 String         @id @default(uuid())
+  donor              Donor          @relation(fields: [donor_id], references: [id])
+  donor_id           String
+  location           Location?      @relation(fields: [location_id], references: [id])
+  location_id        String?
+  deferral           DonorDeferral? @relation(fields: [deferral_id], references: [id])
+  deferral_id        String?        @unique
+  created_by_user    User?          @relation(fields: [created_by_user_id], references: [id])
+  created_by_user_id String?
+  date               DateTime
+  status             String         @default("PENDING")
+  notes              String?
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+}
+
+model DonorDeferral {
+  id                String     @id @default(uuid())
+  donor             Donor      @relation(fields: [donor_id], references: [id])
+  donor_id          String
+  donations         Donation[]
+  donation_id       String?    @unique
+  deferral_type     String
+  start_date        DateTime
+  expected_end_date DateTime
+  status            String     @default("ACTIVE")
+  notes             String?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+}
+
+model Call {
+  id                String       @id @default(uuid())
+  donor             Donor        @relation(fields: [donor_id], references: [id])
+  donor_id          String
+  called_by_user    User         @relation(fields: [called_by_user_id], references: [id])
+  called_by_user_id String
+  call_date         DateTime
+  reservation       Reservation? @relation(fields: [reservation_id], references: [id])
+  reservation_id    String?      @unique
+  outcome           String
+  notes             String?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+}
+
+model Reservation {
+  id                  String   @id @default(uuid())
+  donor               Donor    @relation(fields: [donor_id], references: [id])
+  donor_id            String
+  reserved_by_user    User     @relation(fields: [reserved_by_user_id], references: [id])
+  reserved_by_user_id String
+  expires_at          DateTime
+  status              String   @default("ACTIVE")
+  notes               String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  call Call?
+}
+
+model Location {
+  id        String   @id @default(uuid())
+  type      String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  donors    Donor[]
+  donations Donation[]
+}
+
+
+model Report {
+  id        String   @id @default(uuid())
+  type      String   
+  format    String   
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  parameters Json     
+  filePath  String?  
+}
+
+model Log {
+  id        String   @id @default(uuid())
+  level     String   // e.g., "info", "error", "warn", "debug"
+  message   String
+  context   Json?    // Optional: Additional data (e.g., userId, request details)
+  createdAt DateTime @default(now())
+}

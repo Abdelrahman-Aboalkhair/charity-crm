@@ -1,0 +1,83 @@
+[2025-04-15T14:43:25.296Z] [31MERROR[39M: Unauthorized, please log in
+[2025-04-15T14:43:25.398Z] [31MERROR[39M: Refresh token not found
+[2025-04-15T14:43:49.173Z] [31MERROR[39M: Unauthorized, please log in
+[2025-04-15T14:43:49.222Z] [31MERROR[39M: Refresh token not found
+[2025-04-15T14:58:55.039Z] [31MERROR[39M: Can't find /api/v1/analytics/years on this server!
+[2025-04-15T14:58:55.057Z] [31MERROR[39M: Validation errors:
+[2025-04-15T14:58:55.058Z] [31MERROR[39M: Validation failed
+[2025-04-15T14:58:55.063Z] [31MERROR[39M: Invalid or missing timePeriod. Use: last7days, lastMonth, lastYear, allTime, or custom
+[2025-04-15T14:58:55.070Z] [31MERROR[39M: Invalid or missing timePeriod. Use: last7days, lastMonth, lastYear, allTime, or custom
+[2025-04-15T14:59:22.295Z] [31MERROR[39M: Invalid or missing timePeriod. Use: last7days, lastMonth, lastYear, allTime, or custom
+[2025-04-15T14:59:22.315Z] [31MERROR[39M: Validation errors:
+[2025-04-15T14:59:22.316Z] [31MERROR[39M: Validation failed
+[2025-04-15T14:59:22.335Z] [31MERROR[39M: Invalid or missing timePeriod. Use: last7days, lastMonth, lastYear, allTime, or custom
+[2025-04-15T15:01:04.736Z] [31MERROR[39M: Unauthorized, please log in
+[2025-04-15T15:01:15.267Z] [31MERROR[39M: Invalid or missing timePeriod. Use: last7days, lastMonth, lastYear, allTime, or custom
+[2025-04-15T15:05:00.510Z] [31MERROR[39M: Invalid or missing timePeriod. Use: last7days, lastMonth, lastYear, allTime, or custom
+[2025-04-15T17:57:24.725Z] [31MERROR[39M: Unauthorized, please log in
+[2025-04-15T17:57:24.890Z] [31MERROR[39M: Refresh token not found
+[2025-04-15T17:57:39.425Z] [31MERROR[39M: Invalid or missing timePeriod. Use: last7days, lastMonth, lastYear, allTime, or custom
+[2025-04-15T17:57:39.454Z] [31MERROR[39M: Validation errors:
+[2025-04-15T17:57:39.456Z] [31MERROR[39M: Validation failed
+[2025-04-15T17:57:39.462Z] [31MERROR[39M: Invalid or missing timePeriod. Use: last7days, lastMonth, lastYear, allTime, or custom
+[2025-04-15T17:58:13.557Z] [31MERROR[39M: Validation errors:
+[2025-04-15T17:58:13.559Z] [31MERROR[39M: Validation failed
+[2025-04-15T17:59:43.767Z] [31MERROR[39M: Invalid or missing timePeriod. Use: last7days, lastMonth, lastYear, allTime, or custom
+[2025-04-15T17:59:43.783Z] [31MERROR[39M: Validation errors:
+[2025-04-15T17:59:43.784Z] [31MERROR[39M: Validation failed
+[2025-04-15T17:59:43.788Z] [31MERROR[39M: Invalid or missing timePeriod. Use: last7days, lastMonth, lastYear, allTime, or custom
+[2025-04-15T17:59:49.779Z] [31MERROR[39M: Validation errors:
+[2025-04-15T17:59:49.780Z] [31MERROR[39M: Validation failed
+[2025-04-15T18:12:54.911Z] [31MERROR[39M: Validation errors:
+[2025-04-15T18:12:54.912Z] [31MERROR[39M: Validation failed
+[2025-04-15T18:22:32.505Z] [31MERROR[39M: Invalid access token, please log in
+[2025-04-15T18:22:32.951Z] [31MERROR[39M: Validation errors:
+[2025-04-15T18:22:32.953Z] [31MERROR[39M: Validation failed
+[2025-04-15T18:22:32.960Z] [31MERROR[39M: Invalid or missing timePeriod. Use: last7days, lastMonth, lastYear, allTime, or custom
+[2025-04-15T18:22:33.026Z] [31MERROR[39M: Invalid or missing timePeriod. Use: last7days, lastMonth, lastYear, allTime, or custom
+[2025-04-15T18:25:45.653Z] [31MERROR[39M: Validation errors:
+[2025-04-15T18:25:45.655Z] [31MERROR[39M: Validation failed
+[2025-04-15T18:26:52.490Z] [31MERROR[39M: Unauthorized, please log in
+[2025-04-15T18:28:48.520Z] [31MERROR[39M: Validation errors:
+[2025-04-15T18:28:48.527Z] [31MERROR[39M: Validation failed
+[2025-04-15T18:29:26.575Z] [31MERROR[39M: Validation errors:
+[2025-04-15T18:29:26.577Z] [31MERROR[39M: Validation failed
+[2025-04-15T18:29:59.294Z] [31MERROR[39M: Validation errors:
+[2025-04-15T18:29:59.299Z] [31MERROR[39M: Validation failed
+[2025-04-15T18:43:29.137Z] [31MERROR[39M: Unexpected field
+[2025-04-15T18:45:55.552Z] [31MERROR[39M: Invalid categoryId: cat1
+[2025-04-15T18:46:57.816Z] [31MERROR[39M: Invalid access token, please log in
+[2025-04-15T18:46:58.076Z] [31MERROR[39M: Validation errors:
+[2025-04-15T18:46:58.084Z] [31MERROR[39M: Validation failed
+[2025-04-15T18:54:25.612Z] [31MERROR[39M: Invalid record: {"name":"Anker PowerCore 10000","description":"Portable charger, 10000mAh","price":29.99,"discount":0}
+[2025-04-15T21:06:47.970Z] [31MERROR[39M: Unauthorized, please log in
+[2025-04-15T21:06:48.231Z] [31MERROR[39M: Refresh token not found
+[2025-04-15T21:08:45.336Z] [31MERROR[39M: Validation errors:
+[2025-04-15T21:08:45.339Z] [31MERROR[39M: Validation failed
+[2025-04-15T21:09:42.862Z] [31MERROR[39M: Validation errors:
+[2025-04-15T21:09:42.867Z] [31MERROR[39M: Validation failed
+[2025-04-15T21:11:47.997Z] [31MERROR[39M: Validation errors:
+[2025-04-15T21:11:47.998Z] [31MERROR[39M: Validation failed
+[2025-04-15T21:13:45.456Z] [31MERROR[39M: Can't find /api/v1/reviews/525e7a84-1888-419e-bc0d-386b8d7644f1 on this server!
+[2025-04-15T21:14:15.821Z] [31MERROR[39M: Can't find /api/v1/reviews/525e7a84-1888-419e-bc0d-386b8d7644f1 on this server!
+[2025-04-15T21:15:39.418Z] [31MERROR[39M: Can't find /api/v1/reviews/525e7a84-1888-419e-bc0d-386b8d7644f1 on this server!
+[2025-04-15T21:21:02.343Z] [31MERROR[39M: Validation errors:
+[2025-04-15T21:21:02.348Z] [31MERROR[39M: Validation failed
+[2025-04-15T21:26:08.352Z] [31MERROR[39M: Invalid access token, please log in
+[2025-04-15T21:35:18.255Z] [31MERROR[39M: Validation errors:
+[2025-04-15T21:35:18.256Z] [31MERROR[39M: Validation failed
+[2025-04-15T21:43:46.468Z] [31MERROR[39M: Invalid access token, please log in
+[2025-04-15T21:43:46.481Z] [31MERROR[39M: Invalid access token, please log in
+[2025-04-15T21:43:46.493Z] [31MERROR[39M: Invalid access token, please log in
+[2025-04-15T21:43:46.542Z] [31MERROR[39M: Refresh token not found
+[2025-04-15T21:43:46.551Z] [31MERROR[39M: Refresh token not found
+[2025-04-15T21:43:54.746Z] [31MERROR[39M: Validation errors:
+[2025-04-15T21:43:54.748Z] [31MERROR[39M: Validation failed
+[2025-04-15T21:46:37.879Z] [31MERROR[39M: Validation errors:
+[2025-04-15T21:46:37.880Z] [31MERROR[39M: Validation failed
+[2025-04-15T21:46:54.276Z] [31MERROR[39M: Validation errors:
+[2025-04-15T21:46:54.277Z] [31MERROR[39M: Validation failed
+[2025-04-15T21:47:10.901Z] [31MERROR[39M: Validation errors:
+[2025-04-15T21:47:10.902Z] [31MERROR[39M: Validation failed
+[2025-04-15T21:47:55.933Z] [31MERROR[39M: Validation errors:
+[2025-04-15T21:47:55.934Z] [31MERROR[39M: Validation failed

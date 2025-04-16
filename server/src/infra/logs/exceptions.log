@@ -1,0 +1,24 @@
+[2025-04-16T07:30:07.834Z] [31MERROR[39M: uncaughtException: Missing parameter name at 1: https://git.new/pathToRegexpError
+TypeError: Missing parameter name at 1: https://git.new/pathToRegexpError
+    at name (/home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:153:13)
+    at lexer (/home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:171:21)
+    at lexer.next (<anonymous>)
+    at Iter.peek (/home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:188:32)
+    at Iter.tryConsume (/home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:195:24)
+    at Iter.text (/home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:213:26)
+    at consume (/home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:285:23)
+    at parse (/home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:320:18)
+    at /home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:503:40
+    at Array.map (<anonymous>)
+[2025-04-16T07:30:57.473Z] [31MERROR[39M: uncaughtException: Missing parameter name at 2: https://git.new/pathToRegexpError
+TypeError: Missing parameter name at 2: https://git.new/pathToRegexpError
+    at name (/home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:153:13)
+    at lexer (/home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:171:21)
+    at lexer.next (<anonymous>)
+    at Iter.peek (/home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:188:32)
+    at Iter.tryConsume (/home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:195:24)
+    at Iter.text (/home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:213:26)
+    at consume (/home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:285:23)
+    at parse (/home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:320:18)
+    at /home/abdelrahman-aboalkhair/Projects/WEB/code/donor-management-system/server/node_modules/path-to-regexp/src/index.ts:503:40
+    at Array.map (<anonymous>)
