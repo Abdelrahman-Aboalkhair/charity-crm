@@ -17,11 +17,11 @@ router.get("/facebook/callback", handleSocialLoginCallback("facebook"));
 router.get("/twitter", handleSocialLogin("twitter"));
 router.get("/twitter/callback", handleSocialLoginCallback("twitter"));
 
-router.post("/register", authController.register);
+router.post("/sign-up", authController.register);
 router.post("/sign-in", authController.signin);
+router.get("/sign-out", authController.signout);
 router.get("/refresh-token", authController.refreshToken);
 router.post("/forgot-password", authController.forgotPassword);
 router.post("/reset-password", authController.resetPassword);
-router.get("/sign-out", authController.signout);
 
 export default router;

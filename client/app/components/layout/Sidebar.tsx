@@ -11,20 +11,21 @@ import { clearUser } from "@/app/store/slices/AuthSlice";
 
 import {
   LayoutDashboard,
-  ShoppingCart,
   CreditCard,
-  Layers,
   Users,
   LogOut,
   PanelsRightBottom,
-  FileText,
-  LayoutGrid,
-  Boxes,
-  Paintbrush,
   ShieldCheck,
-  Image,
-  ChartCandlestick,
-  ClipboardPlus,
+  UserPlus,
+  PhoneCall,
+  CalendarCheck,
+  HandCoins,
+  PlusCircle,
+  MapPinned,
+  Users2,
+  FileBarChart2,
+  PhoneForwarded,
+  BarChart3,
 } from "lucide-react";
 import DashboardSearchBar from "../molecules/DashboardSearchbar";
 
@@ -44,36 +45,54 @@ const Sidebar = () => {
         ],
       },
       {
-        title: "E-commerce",
+        title: "Donor Management",
         links: [
-          { name: "Orders", href: "/orders", icon: ShoppingCart },
-          { name: "Products", href: "/products", icon: Layers },
-          { name: "Categories", href: "/categories", icon: Boxes },
-          { name: "Payments", href: "/payments", icon: CreditCard },
+          { name: "Donors", href: "/donors", icon: Users },
+          { name: "Add Donor", href: "/donors/new", icon: UserPlus },
+          { name: "Calls", href: "/calls", icon: PhoneCall },
+          { name: "Reservations", href: "/reservations", icon: CalendarCheck },
         ],
       },
       {
-        title: "Content Management",
+        title: "Donations",
         links: [
-          { name: "Pages", href: "/pages", icon: FileText },
-          { name: "Sections", href: "/sections", icon: LayoutGrid },
-          { name: "Banners", href: "/banners", icon: Image },
-          { name: "Widgets", href: "/widgets", icon: LayoutGrid },
-          { name: "Themes", href: "/themes", icon: Paintbrush },
+          { name: "Donations", href: "/donations", icon: HandCoins },
+          { name: "Add Donation", href: "/donations/new", icon: PlusCircle },
+          { name: "Payment History", href: "/payments", icon: CreditCard },
         ],
       },
       {
-        title: "User Management",
+        title: "Location Management",
         links: [
-          { name: "Customers", href: "/users", icon: Users },
-          { name: "Administrators", href: "/admins", icon: ShieldCheck },
+          {
+            name: "Governates",
+            href: "/locations/governorates",
+            icon: MapPinned,
+          },
+          { name: "Cities", href: "/locations/cities", icon: Map },
         ],
       },
       {
-        title: "Stats",
+        title: "User Access",
         links: [
-          { name: "Analytics", href: "/analytics", icon: ChartCandlestick },
-          { name: "Reports", href: "/reports", icon: ClipboardPlus },
+          { name: "Volunteers", href: "/volunteers", icon: Users2 },
+          { name: "Admins", href: "/admins", icon: ShieldCheck },
+        ],
+      },
+      {
+        title: "Reports & Analytics",
+        links: [
+          { name: "Reports", href: "/reports", icon: FileBarChart2 },
+          {
+            name: "Call Analytics",
+            href: "/analytics/calls",
+            icon: PhoneForwarded,
+          },
+          {
+            name: "Donation Stats",
+            href: "/analytics/donations",
+            icon: BarChart3,
+          },
         ],
       },
     ],

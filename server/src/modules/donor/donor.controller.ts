@@ -1,13 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { DonorService } from "./donor.service";
 import sendResponse from "@/shared/utils/sendResponse";
+import AppError from "@/shared/errors/AppError";
 
 export class DonorController {
-  private donorService: DonorService;
-
-  constructor() {
-    this.donorService = new DonorService();
-  }
+  constructor(private donorService: DonorService) {}
 
   async createDonor(
     req: Request,
@@ -20,6 +17,23 @@ export class DonorController {
       sendResponse(res, 201, {
         data: { donor },
         message: "Donor created successfully",
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async bulkImportDonors(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      if (!req.file) throw new AppError(400, "No file uploaded");
+      const result = await this.donorService.bulkImportDonors(req.file);
+      sendResponse(res, 200, {
+        data: { result },
+        message: "Donors imported successfully",
       });
     } catch (error) {
       next(error);
@@ -49,11 +63,17 @@ export class DonorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { page = "1", limit = "10", search } = req.query;
+      const {
+        page = "1",
+        limit = "10",
+        search,
+        onlyActive = false,
+      } = req.query;
       const result = await this.donorService.getDonors({
         page: parseInt(page as string),
         limit: parseInt(limit as string),
         search: search as string,
+        onlyActive: onlyActive === "true",
       });
       sendResponse(res, 200, {
         data: { donors: result.donors, total: result.total },

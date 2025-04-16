@@ -2,25 +2,29 @@ import { Donation, Prisma } from "@prisma/client";
 import { DonorRepository } from "../donor/donor.repository";
 import { DonationRepository } from "./donation.repository";
 import AppError from "@/shared/errors/AppError";
+import { DonorService } from "../donor/donor.service";
 
 export class DonationService {
-  private donationRepository: DonationRepository;
-  private donorRepository: DonorRepository;
+  constructor(
+    private donorRepository: DonorRepository,
+    private donationRepository: DonationRepository,
+    private donorService: DonorService
+  ) {}
 
-  constructor() {
-    this.donationRepository = new DonationRepository();
-    this.donorRepository = new DonorRepository();
-  }
-
-  async createDonation(data: any, userId?: string): Promise<Donation> {
+  async createDonation(
+    data: any,
+    userId?: string,
+    deferral?: {
+      deferral_type: string;
+      start_date: Date;
+      expected_end_date: Date;
+      notes?: string;
+    }
+  ): Promise<Donation> {
     const donor = await this.donorRepository.findById(data.donor_id);
     if (!donor) throw new AppError(404, "Donor not found");
 
-    return this.donationRepository.create({
-      ...data,
-      created_by_user_id: userId,
-      date: new Date(data.date),
-    });
+    return this.donorService.createDonationWithDeferral(data, userId, deferral);
   }
 
   async getDonationById(id: string): Promise<Donation> {
@@ -59,7 +63,13 @@ export class DonationService {
   ): Promise<Donation> {
     const donation = await this.donationRepository.findById(id);
     if (!donation) throw new AppError(404, "Donation not found");
-    return this.donationRepository.update(id, data);
+
+    const updatedDonation = await this.donationRepository.update(id, data);
+    if (data.date || data.status) {
+      const donor = await this.donorRepository.findById(donation.donor_id);
+      if (donor) await this.donorService.computeDonorStatus(donor);
+    }
+    return updatedDonation;
   }
 
   async deleteDonation(id: string): Promise<void> {

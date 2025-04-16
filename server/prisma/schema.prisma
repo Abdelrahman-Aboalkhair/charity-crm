@@ -13,6 +13,21 @@ enum ROLE {
   USER
 }
 
+enum GENDER {
+  MALE
+  FEMALE
+}
+
+enum DONATION_STATUS {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum DEFERRAL_STATUS {
+  ACTIVE
+  INACTIVE
+}
 model User {
   id                     String    @id @default(uuid())
   name                   String
@@ -37,6 +52,8 @@ model User {
 
 model Donor {
   id                 String    @id @default(uuid())
+  name               String
+  gender             GENDER
   phone_number1      String?
   network_provider1  String?
   phone_number2      String?
@@ -51,6 +68,7 @@ model Donor {
   donor_conditions   String?
   ready_to_volunteer Boolean   @default(false)
   permanent_deferral Boolean   @default(false)
+  isActive           Boolean   @default(true)
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
 
@@ -73,12 +91,9 @@ model Donation {
   created_by_user    User?          @relation(fields: [created_by_user_id], references: [id])
   created_by_user_id String?
   date               DateTime
-  status             String         @default("PENDING")
-  notes              String?
-  createdAt          DateTime       @default(now())
-  updatedAt          DateTime       @updatedAt
-}
+  status             DONATION_STATUS @default(PENDING)
 
+}
 model DonorDeferral {
   id                String     @id @default(uuid())
   donor             Donor      @relation(fields: [donor_id], references: [id])
@@ -88,7 +103,7 @@ model DonorDeferral {
   deferral_type     String
   start_date        DateTime
   expected_end_date DateTime
-  status            String     @default("ACTIVE")
+  status            DEFERRAL_STATUS @default(ACTIVE)
   notes             String?
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt

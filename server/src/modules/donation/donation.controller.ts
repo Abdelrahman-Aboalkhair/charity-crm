@@ -3,11 +3,7 @@ import { DonationService } from "./donation.service";
 import sendResponse from "@/shared/utils/sendResponse";
 
 export class DonationController {
-  private donationService: DonationService;
-
-  constructor() {
-    this.donationService = new DonationService();
-  }
+  constructor(private donationService: DonationService) {}
 
   async createDonation(
     req: Request,
@@ -15,11 +11,22 @@ export class DonationController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const data = req.body;
+      const { deferral, ...donationData } = req.body;
       const userId = req.user?.id;
-      const donation = await this.donationService.createDonation(data, userId);
+      const donation = await this.donationService.createDonation(
+        donationData,
+        userId,
+        deferral
+          ? {
+              deferral_type: deferral.deferral_type,
+              start_date: new Date(deferral.start_date),
+              expected_end_date: new Date(deferral.expected_end_date),
+              notes: deferral.notes,
+            }
+          : undefined
+      );
       sendResponse(res, 201, {
-        data: donation,
+        data: { donation },
         message: "Donation created successfully",
       });
     } catch (error) {

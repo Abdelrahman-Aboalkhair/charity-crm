@@ -23,7 +23,7 @@
 
   body {
     @apply bg-[var(--background)] text-[var(--foreground)] font-normal antialiased;
-    font-family: var(--font-poppins);
+    font-family: var(--font-cairo);
   }
 }
 

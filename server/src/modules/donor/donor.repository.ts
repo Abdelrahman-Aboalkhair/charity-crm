@@ -6,6 +6,12 @@ export class DonorRepository {
     return prisma.donor.create({ data });
   }
 
+  async createDeferral(data: any): Promise<any> {
+    return prisma.donorDeferral.create({
+      data,
+    });
+  }
+
   async findById(id: string): Promise<Donor | null> {
     return prisma.donor.findUnique({
       where: { id },
@@ -37,7 +43,7 @@ export class DonorRepository {
       take: params.take,
       where: params.where,
       orderBy: params.orderBy,
-      include: { location: true },
+      include: { location: true, deferrals: true },
     });
   }
 

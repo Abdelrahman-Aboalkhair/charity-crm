@@ -4,8 +4,6 @@ import Input from "@/app/components/atoms/Input";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import MainLayout from "@/app/components/templates/MainLayout";
-import Image from "next/image";
-import GirlShoppingImage from "@/app/assets/images/girl_shopping.png";
 import { Loader2 } from "lucide-react";
 import LoginButtons from "../(oAuth)/LoginButtons";
 import { useSignInMutation } from "@/app/store/apis/AuthApi";
@@ -42,7 +40,7 @@ const SignIn = () => {
       console.log("result: ", result);
       if (result.success) {
         dispatch(setUser(result.user));
-        router.push("/");
+        router.push("/dashboard");
       }
     } catch (error) {
       console.log("error: ", error);
@@ -129,11 +127,6 @@ const SignIn = () => {
 
           <LoginButtons />
         </main>
-        <Image
-          src={GirlShoppingImage}
-          alt="Girl Shopping"
-          className="object-cover w-[600px]"
-        />
       </div>
     </MainLayout>
   );
