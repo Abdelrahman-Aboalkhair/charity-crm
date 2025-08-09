@@ -11,23 +11,15 @@ import { clearUser } from "@/app/store/slices/AuthSlice";
 
 import {
   LayoutDashboard,
-  CreditCard,
   Users,
   LogOut,
   PanelsRightBottom,
   ShieldCheck,
-  UserPlus,
   PhoneCall,
   CalendarCheck,
   HandCoins,
-  PlusCircle,
-  MapPinned,
   Users2,
-  FileBarChart2,
-  PhoneForwarded,
-  BarChart3,
 } from "lucide-react";
-import DashboardSearchBar from "../molecules/DashboardSearchbar";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useStorage<boolean>("sidebarOpen", true, "local");
@@ -48,51 +40,19 @@ const Sidebar = () => {
         title: "Donor Management",
         links: [
           { name: "Donors", href: "/donors", icon: Users },
-          { name: "Add Donor", href: "/donors/new", icon: UserPlus },
           { name: "Calls", href: "/calls", icon: PhoneCall },
           { name: "Reservations", href: "/reservations", icon: CalendarCheck },
         ],
       },
       {
         title: "Donations",
-        links: [
-          { name: "Donations", href: "/donations", icon: HandCoins },
-          { name: "Add Donation", href: "/donations/new", icon: PlusCircle },
-          { name: "Payment History", href: "/payments", icon: CreditCard },
-        ],
-      },
-      {
-        title: "Location Management",
-        links: [
-          {
-            name: "Governates",
-            href: "/locations/governorates",
-            icon: MapPinned,
-          },
-          { name: "Cities", href: "/locations/cities", icon: Map },
-        ],
+        links: [{ name: "Donations", href: "/donations", icon: HandCoins }],
       },
       {
         title: "User Access",
         links: [
           { name: "Volunteers", href: "/volunteers", icon: Users2 },
           { name: "Admins", href: "/admins", icon: ShieldCheck },
-        ],
-      },
-      {
-        title: "Reports & Analytics",
-        links: [
-          { name: "Reports", href: "/reports", icon: FileBarChart2 },
-          {
-            name: "Call Analytics",
-            href: "/analytics/calls",
-            icon: PhoneForwarded,
-          },
-          {
-            name: "Donation Stats",
-            href: "/analytics/donations",
-            icon: BarChart3,
-          },
         ],
       },
     ],
@@ -162,7 +122,6 @@ const Sidebar = () => {
           >
             <PanelsRightBottom size={24} className="text-gray-700" />
           </button>
-          <DashboardSearchBar />
         </div>
 
         {/* Navigation */}

@@ -15,14 +15,11 @@ import donationRoutes from "./modules/donation/donation.routes";
 import callRoutes from "./modules/call/call.routes";
 import locationRoutes from "./modules/location/location.routes";
 import reservationRoutes from "./modules/reservation/reservation.routes";
-import passport from "passport";
-import configurePassport from "./infra/passport/passport";
 import session from "express-session";
 import redisClient from "./infra/cache/redis";
 import { RedisStore } from "connect-redis";
 import { cookieParserOptions } from "./shared/constants";
 import bodyParser from "body-parser";
-import AppError from "./shared/errors/AppError";
 import globalError from "./shared/errors/globalError";
 import { logRequest } from "./shared/middlewares/logRequest";
 import NotFoundError from "./shared/errors/NotFoundError";
@@ -50,10 +47,6 @@ app.use(
     },
   })
 );
-app.use(passport.initialize());
-app.use(passport.session());
-
-configurePassport();
 
 app.use(helmet());
 app.use(
@@ -126,11 +119,11 @@ app.use("/api/locations", locationRoutes);
 app.use("/api/reservations", reservationRoutes);
 
 // **! ERROR HERE
-// app.all("/*", (req, res, next) => {
-//   const path =
-//     typeof req.originalUrl === "string" ? req.originalUrl : "unknown path";
-//   next(new NotFoundError(`Can't find ${path} on this server!`));
-// });
+app.all("/*", (req, res, next) => {
+  const path =
+    typeof req.originalUrl === "string" ? req.originalUrl : "unknown path";
+  next(new NotFoundError(`Can't find ${path} on this server!`));
+});
 
 // Global Error Handler
 app.use(globalError);

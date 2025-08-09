@@ -600,3 +600,4 @@
 [2025-04-15T21:47:55.985Z] [32MINFO[39M: ::1 - - [15/Apr/2025:21:47:55 +0000] "GET /api/v1/analytics/products?timePeriod=allTime&year=2025 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
 [2025-04-15T21:47:55.985Z] [32MINFO[39M: ::1 - - [15/Apr/2025:21:47:55 +0000] "GET /api/v1/analytics/customers?timePeriod=allTime&year=2025 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
 [2025-04-15T21:47:55.988Z] [32MINFO[39M: ::1 - - [15/Apr/2025:21:47:55 +0000] "GET /api/v1/users HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
+[2025-08-09T07:43:50.492Z] [31MERROR[39M: Unauthorized, please log in

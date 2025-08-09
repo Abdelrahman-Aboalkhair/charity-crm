@@ -1,7 +1,6 @@
 import { Cairo } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "./StoreProvider";
-import SessionWrapper from "./SessionWrapper";
 
 const cairo = Cairo({
   variable: "--font-cairo",
@@ -25,9 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${cairo.variable} antialiased`}>
-        <StoreProvider>
-          <SessionWrapper>{children}</SessionWrapper>
-        </StoreProvider>
+        <StoreProvider>{children}</StoreProvider>
       </body>
     </html>
   );

@@ -28,26 +28,24 @@ enum DEFERRAL_STATUS {
   ACTIVE
   INACTIVE
 }
+
 model User {
-  id                     String    @id @default(uuid())
-  name                   String
-  email                  String    @unique
-  role                   ROLE
-  googleId               String?   @unique
-  facebookId             String?   @unique
-  twitterId              String?   @unique
-  avatar                 String?
-  password               String?
-  resetPasswordToken     String?
+  id                          String        @id @default(uuid())
+  name                        String
+  email                       String        @unique
+  role                        ROLE
+  googleId                    String?       @unique
+  facebookId                  String?       @unique
+  twitterId                   String?       @unique
+  avatar                      String?
+  password                    String?
+  resetPasswordToken          String?
   resetPasswordTokenExpiresAt DateTime?
-  createdAt              DateTime  @default(now())
-  updatedAt              DateTime  @updatedAt
-
-  reports      Report[]
-
-  calls        Call[]
-  reservations Reservation[]
-  Donation     Donation[]
+  createdAt                   DateTime      @default(now())
+  updatedAt                   DateTime      @updatedAt
+  calls                       Call[]
+  reservations                Reservation[]
+  Donation                    Donation[]
 }
 
 model Donor {
@@ -81,32 +79,32 @@ model Donor {
 }
 
 model Donation {
-  id                 String         @id @default(uuid())
-  donor              Donor          @relation(fields: [donor_id], references: [id])
+  id                 String          @id @default(uuid())
+  donor              Donor           @relation(fields: [donor_id], references: [id])
   donor_id           String
-  location           Location?      @relation(fields: [location_id], references: [id])
+  location           Location?       @relation(fields: [location_id], references: [id])
   location_id        String?
-  deferral           DonorDeferral? @relation(fields: [deferral_id], references: [id])
-  deferral_id        String?        @unique
-  created_by_user    User?          @relation(fields: [created_by_user_id], references: [id])
+  deferral           DonorDeferral?  @relation(fields: [deferral_id], references: [id])
+  deferral_id        String?         @unique
+  created_by_user    User?           @relation(fields: [created_by_user_id], references: [id])
   created_by_user_id String?
   date               DateTime
   status             DONATION_STATUS @default(PENDING)
-
 }
+
 model DonorDeferral {
-  id                String     @id @default(uuid())
-  donor             Donor      @relation(fields: [donor_id], references: [id])
+  id                String          @id @default(uuid())
+  donor             Donor           @relation(fields: [donor_id], references: [id])
   donor_id          String
   donations         Donation[]
-  donation_id       String?    @unique
+  donation_id       String?         @unique
   deferral_type     String
   start_date        DateTime
   expected_end_date DateTime
   status            DEFERRAL_STATUS @default(ACTIVE)
   notes             String?
-  createdAt         DateTime   @default(now())
-  updatedAt         DateTime   @updatedAt
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
 }
 
 model Call {
@@ -150,22 +148,10 @@ model Location {
   donations Donation[]
 }
 
-
-model Report {
-  id        String   @id @default(uuid())
-  type      String   
-  format    String   
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
-  parameters Json     
-  filePath  String?  
-}
-
 model Log {
   id        String   @id @default(uuid())
-  level     String   // e.g., "info", "error", "warn", "debug"
+  level     String // e.g., "info", "error", "warn", "debug"
   message   String
-  context   Json?    // Optional: Additional data (e.g., userId, request details)
+  context   Json? // Optional: Additional data (e.g., userId, request details)
   createdAt DateTime @default(now())
 }

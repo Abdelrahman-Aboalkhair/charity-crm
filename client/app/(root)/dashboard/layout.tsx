@@ -4,7 +4,6 @@ import { useAppSelector } from "@/app/store/hooks";
 import BreadCrumb from "@/app/components/feedback/BreadCrumb";
 import Image from "next/image";
 import Sidebar from "../../components/layout/Sidebar";
-import DashboardSearchBar from "@/app/components/molecules/DashboardSearchbar";
 
 export default function DashboardLayout({
   children,
@@ -21,7 +20,6 @@ export default function DashboardLayout({
         <header className="flex items-center justify-between p-4 border-b border-gray-200 bg-white">
           <BreadCrumb />
           <div className="flex items-center gap-6">
-            <DashboardSearchBar />
             <div className="flex items-center gap-2">
               <Image
                 src={user?.avatar || ""}

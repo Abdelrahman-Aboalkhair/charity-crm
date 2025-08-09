@@ -1,9 +1,9 @@
 import { Router } from "express";
 import protect from "@/shared/middlewares/protect";
-import { DonationController } from "./donation.controller";
+import { makeDonationController } from "./donation.factory";
 
 const router = Router();
-const donationController = new DonationController();
+const donationController = makeDonationController();
 
 router.post("/", protect, (req, res, next) =>
   donationController.createDonation(req, res, next)
