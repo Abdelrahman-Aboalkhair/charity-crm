@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const user_factory_1 = require("./user.factory");
+const protect_1 = __importDefault(require("@/shared/middlewares/protect"));
+const authorizeRole_1 = __importDefault(require("@/shared/middlewares/authorizeRole"));
+const validateDto_1 = require("@/shared/middlewares/validateDto");
+const user_dto_1 = require("./user.dto");
+const router = (0, express_1.Router)();
+const userController = (0, user_factory_1.makeUserController)();
+router.get("/me", protect_1.default, userController.getMe);
+router.get("/", protect_1.default, (0, authorizeRole_1.default)("ADMIN", "SUPERADMIN"), userController.getAllUsers);
+router.get("/:id", protect_1.default, (0, authorizeRole_1.default)("ADMIN", "SUPERADMIN"), (0, validateDto_1.validateDto)(user_dto_1.UserIdDto), userController.getUserById);
+router.get("/email/:email", protect_1.default, (0, authorizeRole_1.default)("ADMIN", "SUPERADMIN"), (0, validateDto_1.validateDto)(user_dto_1.UserEmailDto), userController.getUserByEmail);
+router.put("/:id", protect_1.default, (0, authorizeRole_1.default)("USER"), (0, validateDto_1.validateDto)(user_dto_1.UpdateUserDto), userController.updateMe);
+router.delete("/:id", protect_1.default, (0, authorizeRole_1.default)("ADMIN", "SUPERADMIN"), (0, validateDto_1.validateDto)(user_dto_1.UserIdDto), userController.deleteUser);
+exports.default = router;

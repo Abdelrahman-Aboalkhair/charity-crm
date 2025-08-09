@@ -8,11 +8,9 @@ import {
   LayoutDashboard,
   Users,
   PanelsRightBottom,
-  ShieldCheck,
   PhoneCall,
   CalendarCheck,
   HandCoins,
-  Users2,
 } from "lucide-react";
 
 const Sidebar = () => {
@@ -38,13 +36,6 @@ const Sidebar = () => {
       {
         title: "Donations",
         links: [{ name: "Donations", href: "/donations", icon: HandCoins }],
-      },
-      {
-        title: "User Access",
-        links: [
-          { name: "Volunteers", href: "/volunteers", icon: Users2 },
-          { name: "Admins", href: "/admins", icon: ShieldCheck },
-        ],
       },
     ],
     []
