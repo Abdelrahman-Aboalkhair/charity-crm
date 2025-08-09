@@ -1,0 +1,22 @@
+[2025-08-09T08:26:21.493Z] [31MERROR[39M: uncaughtException: Cannot find module '@/infra/database/database.config'
+Require stack:
+- /app/dist/modules/user/user.repository.js
+- /app/dist/modules/user/user.factory.js
+- /app/dist/modules/user/user.routes.js
+- /app/dist/app.js
+Error: Cannot find module '@/infra/database/database.config'
+Require stack:
+- /app/dist/modules/user/user.repository.js
+- /app/dist/modules/user/user.factory.js
+- /app/dist/modules/user/user.routes.js
+- /app/dist/app.js
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)
+    at Function._load (node:internal/modules/cjs/loader:1175:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.require (node:internal/modules/cjs/loader:1445:12)
+    at require (node:internal/modules/helpers:135:16)
+    at Object.<anonymous> (/app/dist/modules/user/user.repository.js:16:43)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
