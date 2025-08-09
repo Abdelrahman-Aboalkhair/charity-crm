@@ -1,18 +1,12 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
-
-import useStorage from "@/app/hooks/state/useStorage";
-import { useSignOutMutation } from "@/app/store/apis/AuthApi";
-import { useAppDispatch } from "@/app/store/hooks";
-import { clearUser } from "@/app/store/slices/AuthSlice";
+import { usePathname } from "next/navigation";
 
 import {
   LayoutDashboard,
   Users,
-  LogOut,
   PanelsRightBottom,
   ShieldCheck,
   PhoneCall,
@@ -22,11 +16,8 @@ import {
 } from "lucide-react";
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useStorage<boolean>("sidebarOpen", true, "local");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const pathname = usePathname();
-  const router = useRouter();
-  const dispatch = useAppDispatch();
-  const [signout] = useSignOutMutation();
 
   const sections = useMemo(
     () => [
@@ -61,16 +52,6 @@ const Sidebar = () => {
 
   const prependDashboard = (href: string) =>
     href.startsWith("/dashboard") ? href : `/dashboard${href}`;
-
-  const handleSignOut = async () => {
-    try {
-      await signout().unwrap();
-      dispatch(clearUser());
-      router.push("/sign-in");
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
-  };
 
   const SidebarLink = ({
     name,
@@ -149,18 +130,6 @@ const Sidebar = () => {
             </div>
           ))}
         </nav>
-      </div>
-
-      <div className="mt-6">
-        <button
-          onClick={handleSignOut}
-          className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl bg-red-50 hover:bg-red-100 transition-all duration-300 group"
-        >
-          <LogOut className="h-5 w-5 text-red-500 group-hover:text-red-600" />
-          {isOpen && (
-            <span className="text-sm font-medium text-red-600">Sign Out</span>
-          )}
-        </button>
       </div>
     </motion.aside>
   );
