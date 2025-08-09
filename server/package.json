@@ -2,9 +2,6 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
-  "_moduleAliases": {
-    "@": "src"
-  },
   "scripts": {
     "start": "node dist/app.js",
     "build": "tsc",
@@ -18,6 +15,7 @@
   "dependencies": {
     "@prisma/client": "^6.5.0",
     "@types/cors": "^2.8.17",
+    "@types/module-alias": "^2.0.4",
     "@types/uuid": "^10.0.0",
     "axios": "^1.8.4",
     "bcryptjs": "^3.0.2",
