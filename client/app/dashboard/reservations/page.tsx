@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Plus, Edit, Trash2, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,10 +12,24 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useGetReservationsQuery, useDeleteReservationMutation } from "@/store/api";
+import {
+  useGetReservationsQuery,
+  useDeleteReservationMutation,
+} from "@/store/api";
+import { ReservationModal } from "@/components/modals/ReservationModal";
+import { Reservation } from "@/store/api";
 
 export default function ReservationsPage() {
-  const { data: reservationsData, isLoading, error } = useGetReservationsQuery({ page: 1, limit: 100 });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedReservation, setSelectedReservation] =
+    useState<Reservation | null>(null);
+  const [modalMode, setModalMode] = useState<"create" | "edit">("create");
+
+  const {
+    data: reservationsData,
+    isLoading,
+    error,
+  } = useGetReservationsQuery({ page: 1, limit: 100 });
   const [deleteReservation] = useDeleteReservationMutation();
 
   const reservations = reservationsData?.reservations || [];
@@ -27,6 +42,23 @@ export default function ReservationsPage() {
         console.error("Failed to delete reservation:", error);
       }
     }
+  };
+
+  const handleCreateReservation = () => {
+    setSelectedReservation(null);
+    setModalMode("create");
+    setIsModalOpen(true);
+  };
+
+  const handleEditReservation = (reservation: Reservation) => {
+    setSelectedReservation(reservation);
+    setModalMode("edit");
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedReservation(null);
   };
 
   if (isLoading) {
@@ -74,7 +106,7 @@ export default function ReservationsPage() {
           <h1 className="text-3xl font-bold text-gray-900">Reservations</h1>
           <p className="text-gray-600">Manage your donor reservations</p>
         </div>
-        <Button>
+        <Button onClick={handleCreateReservation}>
           <Plus className="h-4 w-4 mr-2" />
           Add Reservation
         </Button>
@@ -82,7 +114,9 @@ export default function ReservationsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>All Reservations ({reservationsData?.total || 0})</CardTitle>
+          <CardTitle>
+            All Reservations ({reservationsData?.total || 0})
+          </CardTitle>
         </CardHeader>
         <CardContent>
           {reservations && reservations.length > 0 ? (
@@ -116,13 +150,19 @@ export default function ReservationsPage() {
                         {reservation.status}
                       </span>
                     </TableCell>
-                    <TableCell>{reservation.reserved_by_user?.name || "Unknown"}</TableCell>
+                    <TableCell>
+                      {reservation.reserved_by_user?.name || "Unknown"}
+                    </TableCell>
                     <TableCell>
                       <div className="flex items-center space-x-2">
                         <Button variant="ghost" size="icon">
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleEditReservation(reservation)}
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
                         <Button
@@ -145,6 +185,13 @@ export default function ReservationsPage() {
           )}
         </CardContent>
       </Card>
+
+      <ReservationModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        reservation={selectedReservation}
+        mode={modalMode}
+      />
     </div>
   );
 }

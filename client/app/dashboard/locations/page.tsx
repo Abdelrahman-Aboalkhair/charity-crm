@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Plus, Edit, Trash2, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,9 +13,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useGetLocationsQuery, useDeleteLocationMutation } from "@/store/api";
+import { LocationModal } from "@/components/modals/LocationModal";
+import { Location } from "@/store/api";
 
 export default function LocationsPage() {
-  const { data: locationsData, isLoading, error } = useGetLocationsQuery({ page: 1, limit: 100 });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(
+    null
+  );
+  const [modalMode, setModalMode] = useState<"create" | "edit">("create");
+
+  const {
+    data: locationsData,
+    isLoading,
+    error,
+  } = useGetLocationsQuery({ page: 1, limit: 100 });
   const [deleteLocation] = useDeleteLocationMutation();
 
   const locations = locationsData?.locations || [];
@@ -27,6 +40,23 @@ export default function LocationsPage() {
         console.error("Failed to delete location:", error);
       }
     }
+  };
+
+  const handleCreateLocation = () => {
+    setSelectedLocation(null);
+    setModalMode("create");
+    setIsModalOpen(true);
+  };
+
+  const handleEditLocation = (location: Location) => {
+    setSelectedLocation(location);
+    setModalMode("edit");
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedLocation(null);
   };
 
   if (isLoading) {
@@ -74,7 +104,7 @@ export default function LocationsPage() {
           <h1 className="text-3xl font-bold text-gray-900">Locations</h1>
           <p className="text-gray-600">Manage your donation locations</p>
         </div>
-        <Button>
+        <Button onClick={handleCreateLocation}>
           <Plus className="h-4 w-4 mr-2" />
           Add Location
         </Button>
@@ -98,7 +128,9 @@ export default function LocationsPage() {
               <TableBody>
                 {locations.map((location) => (
                   <TableRow key={location.id}>
-                    <TableCell className="font-medium">{location.name}</TableCell>
+                    <TableCell className="font-medium">
+                      {location.name}
+                    </TableCell>
                     <TableCell>{location.type}</TableCell>
                     <TableCell>
                       {new Date(location.createdAt).toLocaleDateString()}
@@ -108,7 +140,11 @@ export default function LocationsPage() {
                         <Button variant="ghost" size="icon">
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleEditLocation(location)}
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
                         <Button
@@ -131,6 +167,13 @@ export default function LocationsPage() {
           )}
         </CardContent>
       </Card>
+
+      <LocationModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        location={selectedLocation}
+        mode={modalMode}
+      />
     </div>
   );
 }

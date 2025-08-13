@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Plus, Edit, Trash2, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,9 +13,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useGetDonorsQuery, useDeleteDonorMutation } from "@/store/api";
+import { DonorModal } from "@/components/modals/DonorModal";
+import { Donor } from "@/store/api";
 
 export default function DonorsPage() {
-  const { data: donorsData, isLoading, error } = useGetDonorsQuery({ page: 1, limit: 100 });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDonor, setSelectedDonor] = useState<Donor | null>(null);
+  const [modalMode, setModalMode] = useState<"create" | "edit">("create");
+
+  const {
+    data: donorsData,
+    isLoading,
+    error,
+  } = useGetDonorsQuery({ page: 1, limit: 100 });
+  console.log("donorsData: ", donorsData);
+  console.log("error loading donors: ", error);
   const [deleteDonor] = useDeleteDonorMutation();
 
   const donors = donorsData?.donors || [];
@@ -27,6 +40,23 @@ export default function DonorsPage() {
         console.error("Failed to delete donor:", error);
       }
     }
+  };
+
+  const handleCreateDonor = () => {
+    setSelectedDonor(null);
+    setModalMode("create");
+    setIsModalOpen(true);
+  };
+
+  const handleEditDonor = (donor: Donor) => {
+    setSelectedDonor(donor);
+    setModalMode("edit");
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedDonor(null);
   };
 
   if (isLoading) {
@@ -74,7 +104,7 @@ export default function DonorsPage() {
           <h1 className="text-3xl font-bold text-gray-900">Donors</h1>
           <p className="text-gray-600">Manage your donor database</p>
         </div>
-        <Button>
+        <Button onClick={handleCreateDonor}>
           <Plus className="h-4 w-4 mr-2" />
           Add Donor
         </Button>
@@ -122,7 +152,11 @@ export default function DonorsPage() {
                         <Button variant="ghost" size="icon">
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleEditDonor(donor)}
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
                         <Button
@@ -145,6 +179,13 @@ export default function DonorsPage() {
           )}
         </CardContent>
       </Card>
+
+      <DonorModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        donor={selectedDonor}
+        mode={modalMode}
+      />
     </div>
   );
 }

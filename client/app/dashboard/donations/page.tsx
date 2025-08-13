@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Plus, Edit, Trash2, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,8 +13,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useGetDonationsQuery, useDeleteDonationMutation } from "@/store/api";
+import { DonationModal } from "@/components/modals/DonationModal";
+import { Donation } from "@/store/api";
 
 export default function DonationsPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDonation, setSelectedDonation] = useState<Donation | null>(null);
+  const [modalMode, setModalMode] = useState<"create" | "edit">("create");
+  
   const { data: donationsData, isLoading, error } = useGetDonationsQuery({ page: 1, limit: 100 });
   const [deleteDonation] = useDeleteDonationMutation();
 
@@ -27,6 +34,23 @@ export default function DonationsPage() {
         console.error("Failed to delete donation:", error);
       }
     }
+  };
+
+  const handleCreateDonation = () => {
+    setSelectedDonation(null);
+    setModalMode("create");
+    setIsModalOpen(true);
+  };
+
+  const handleEditDonation = (donation: Donation) => {
+    setSelectedDonation(donation);
+    setModalMode("edit");
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedDonation(null);
   };
 
   if (isLoading) {
@@ -74,7 +98,7 @@ export default function DonationsPage() {
           <h1 className="text-3xl font-bold text-gray-900">Donations</h1>
           <p className="text-gray-600">Manage your donation records</p>
         </div>
-        <Button>
+        <Button onClick={handleCreateDonation}>
           <Plus className="h-4 w-4 mr-2" />
           Add Donation
         </Button>
@@ -124,7 +148,7 @@ export default function DonationsPage() {
                         <Button variant="ghost" size="icon">
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon">
+                        <Button variant="ghost" size="icon" onClick={() => handleEditDonation(donation)}>
                           <Edit className="h-4 w-4" />
                         </Button>
                         <Button
@@ -147,6 +171,13 @@ export default function DonationsPage() {
           )}
         </CardContent>
       </Card>
+
+      <DonationModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        donation={selectedDonation}
+        mode={modalMode}
+      />
     </div>
   );
 }

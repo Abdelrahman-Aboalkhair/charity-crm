@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Plus, Edit, Trash2, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,9 +13,19 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useGetCallsQuery, useDeleteCallMutation } from "@/store/api";
+import { CallModal } from "@/components/modals/CallModal";
+import { Call } from "@/store/api";
 
 export default function CallsPage() {
-  const { data: callsData, isLoading, error } = useGetCallsQuery({ page: 1, limit: 100 });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCall, setSelectedCall] = useState<Call | null>(null);
+  const [modalMode, setModalMode] = useState<"create" | "edit">("create");
+
+  const {
+    data: callsData,
+    isLoading,
+    error,
+  } = useGetCallsQuery({ page: 1, limit: 100 });
   const [deleteCall] = useDeleteCallMutation();
 
   const calls = callsData?.calls || [];
@@ -27,6 +38,23 @@ export default function CallsPage() {
         console.error("Failed to delete call:", error);
       }
     }
+  };
+
+  const handleCreateCall = () => {
+    setSelectedCall(null);
+    setModalMode("create");
+    setIsModalOpen(true);
+  };
+
+  const handleEditCall = (call: Call) => {
+    setSelectedCall(call);
+    setModalMode("edit");
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedCall(null);
   };
 
   if (isLoading) {
@@ -74,7 +102,7 @@ export default function CallsPage() {
           <h1 className="text-3xl font-bold text-gray-900">Calls</h1>
           <p className="text-gray-600">Manage your call records</p>
         </div>
-        <Button>
+        <Button onClick={handleCreateCall}>
           <Plus className="h-4 w-4 mr-2" />
           Add Call
         </Button>
@@ -106,13 +134,19 @@ export default function CallsPage() {
                       {new Date(call.call_date).toLocaleDateString()}
                     </TableCell>
                     <TableCell>{call.outcome}</TableCell>
-                    <TableCell>{call.called_by_user?.name || "Unknown"}</TableCell>
+                    <TableCell>
+                      {call.called_by_user?.name || "Unknown"}
+                    </TableCell>
                     <TableCell>
                       <div className="flex items-center space-x-2">
                         <Button variant="ghost" size="icon">
                           <Eye className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleEditCall(call)}
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
                         <Button
@@ -135,6 +169,13 @@ export default function CallsPage() {
           )}
         </CardContent>
       </Card>
+
+      <CallModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        call={selectedCall}
+        mode={modalMode}
+      />
     </div>
   );
 }
