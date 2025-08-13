@@ -4,13 +4,10 @@ import { DonorRepository } from "../donor/donor.repository";
 import AppError from "@/shared/errors/AppError";
 
 export class ReservationService {
-  private reservationRepository: ReservationRepository;
-  private donorRepository: DonorRepository;
-
-  constructor() {
-    this.reservationRepository = new ReservationRepository();
-    this.donorRepository = new DonorRepository();
-  }
+  constructor(
+    private reservationRepository: ReservationRepository,
+    private donorRepository: DonorRepository
+  ) {}
 
   async createReservation(
     donorId: string,
@@ -47,10 +44,10 @@ export class ReservationService {
   }): Promise<{ reservations: Reservation[]; total: number }> {
     const { page, limit, donorId, userId } = params;
     const skip = (page - 1) * limit;
-    const where: Prisma.ReservationWhereInput = {
-      donor_id: donorId,
-      reserved_by_user_id: userId,
-    };
+    const where: Prisma.ReservationWhereInput = {};
+
+    if (donorId) where.donor_id = donorId;
+    if (userId) where.reserved_by_user_id = userId;
 
     const [reservations, total] = await Promise.all([
       this.reservationRepository.findMany({

@@ -39,10 +39,7 @@ export class AuthRepository {
     email: string;
     name: string;
     password: string;
-    emailVerificationToken: string;
-    emailVerificationTokenExpiresAt: Date;
     role: ROLE;
-    emailVerified: boolean;
   }) {
     return prisma.user.create({
       data,
@@ -53,20 +50,6 @@ export class AuthRepository {
         role: true,
         avatar: true,
       },
-    });
-  }
-
-  async updateUserEmailVerification(
-    userId: string,
-    data: {
-      emailVerificationToken: string | null;
-      emailVerificationTokenExpiresAt: Date | null;
-      emailVerified?: boolean;
-    }
-  ) {
-    return prisma.user.update({
-      where: { id: userId },
-      data,
     });
   }
 

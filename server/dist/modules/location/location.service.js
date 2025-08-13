@@ -13,11 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LocationService = void 0;
-const location_repository_1 = require("./location.repository");
 const AppError_1 = __importDefault(require("@/shared/errors/AppError"));
 class LocationService {
-    constructor() {
-        this.locationRepository = new location_repository_1.LocationRepository();
+    constructor(locationRepository) {
+        this.locationRepository = locationRepository;
     }
     createLocation(data) {
         return __awaiter(this, void 0, void 0, function* () {

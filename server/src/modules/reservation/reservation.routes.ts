@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { ReservationController } from "./reservation.controller";
 import protect from "@/shared/middlewares/protect";
+import { makeReservationController } from "./reservation.factory";
 
 const router = Router();
-const reservationController = new ReservationController();
+const reservationController = makeReservationController();
 
 router.post("/", protect, (req, res, next) =>
   reservationController.createReservation(req, res, next)

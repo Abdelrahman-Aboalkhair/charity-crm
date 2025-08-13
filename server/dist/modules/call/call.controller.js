@@ -14,10 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CallController = void 0;
 const sendResponse_1 = __importDefault(require("@/shared/utils/sendResponse"));
-const call_service_1 = require("./call.service");
 class CallController {
-    constructor() {
-        this.callService = new call_service_1.CallService();
+    constructor(callService) {
+        this.callService = callService;
     }
     logCall(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {

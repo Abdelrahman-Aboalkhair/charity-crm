@@ -13,13 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReservationService = void 0;
-const reservation_repository_1 = require("./reservation.repository");
-const donor_repository_1 = require("../donor/donor.repository");
 const AppError_1 = __importDefault(require("@/shared/errors/AppError"));
 class ReservationService {
-    constructor() {
-        this.reservationRepository = new reservation_repository_1.ReservationRepository();
-        this.donorRepository = new donor_repository_1.DonorRepository();
+    constructor(reservationRepository, donorRepository) {
+        this.reservationRepository = reservationRepository;
+        this.donorRepository = donorRepository;
     }
     createReservation(donorId, expiresAt, userId) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -49,10 +47,11 @@ class ReservationService {
         return __awaiter(this, void 0, void 0, function* () {
             const { page, limit, donorId, userId } = params;
             const skip = (page - 1) * limit;
-            const where = {
-                donor_id: donorId,
-                reserved_by_user_id: userId,
-            };
+            const where = {};
+            if (donorId)
+                where.donor_id = donorId;
+            if (userId)
+                where.reserved_by_user_id = userId;
             const [reservations, total] = yield Promise.all([
                 this.reservationRepository.findMany({
                     skip,

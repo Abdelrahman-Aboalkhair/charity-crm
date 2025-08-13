@@ -3,11 +3,7 @@ import { LocationRepository } from "./location.repository";
 import AppError from "@/shared/errors/AppError";
 
 export class LocationService {
-  private locationRepository: LocationRepository;
-
-  constructor() {
-    this.locationRepository = new LocationRepository();
-  }
+  constructor(private locationRepository: LocationRepository) {}
 
   async createLocation(data: Prisma.LocationCreateInput): Promise<Location> {
     return this.locationRepository.create(data);

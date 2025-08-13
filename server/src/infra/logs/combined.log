@@ -601,3 +601,33 @@
 [2025-04-15T21:47:55.985Z] [32MINFO[39M: ::1 - - [15/Apr/2025:21:47:55 +0000] "GET /api/v1/analytics/customers?timePeriod=allTime&year=2025 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
 [2025-04-15T21:47:55.988Z] [32MINFO[39M: ::1 - - [15/Apr/2025:21:47:55 +0000] "GET /api/v1/users HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
 [2025-08-09T07:43:50.492Z] [31MERROR[39M: Unauthorized, please log in
+[2025-08-13T03:41:33.800Z] [31MERROR[39M: Can't find /api/v1/donors on this server! not found
+[2025-08-13T03:43:47.660Z] [31MERROR[39M: Unauthorized, please log in
+[2025-08-13T03:48:06.152Z] [31MERROR[39M: Invalid input. Please check your request data.
+[2025-08-13T03:48:06.895Z] [32MINFO[39M: ::1 - - [13/Aug/2025:03:48:06 +0000] "POST /api/v1/auth/sign-up HTTP/1.1" 400 - "-" "PostmanRuntime/7.45.0"
+[2025-08-13T03:51:13.953Z] [32MINFO[39M: ::1 - - [13/Aug/2025:03:51:13 +0000] "POST /api/v1/auth/sign-up HTTP/1.1" 201 180 "-" "PostmanRuntime/7.45.0"
+[2025-08-13T03:51:28.650Z] [32MINFO[39M: ::1 - - [13/Aug/2025:03:51:28 +0000] "POST /api/v1/auth/sign-in HTTP/1.1" 200 138 "-" "PostmanRuntime/7.45.0"
+[2025-08-13T03:51:32.353Z] [31MERROR[39M: Cannot read properties of undefined (reading 'donorService')
+[2025-08-13T03:51:32.974Z] [32MINFO[39M: ::1 - - [13/Aug/2025:03:51:32 +0000] "GET /api/v1/donors HTTP/1.1" 500 - "-" "PostmanRuntime/7.45.0"
+[2025-08-13T04:15:48.732Z] [31MERROR[39M: Error: Invalid access token, please log in
+[2025-08-13T04:15:56.625Z] [31MERROR[39M: Error: Cannot read properties of undefined (reading 'donorService')
+[2025-08-13T04:17:09.616Z] [31MERROR[39M: Error: Unauthorized, please log in
+[2025-08-13T04:17:25.767Z] [31MERROR[39M: Error: Cannot read properties of undefined (reading 'donorService')
+[2025-08-13T04:18:14.237Z] [31MERROR[39M: Error: Unauthorized, please log in
+[2025-08-13T04:18:36.204Z] [31MERROR[39M: Error: Unauthorized, please log in
+[2025-08-13T04:18:36.210Z] [31MERROR[39M: Error: Unauthorized, please log in
+[2025-08-13T04:18:36.213Z] [31MERROR[39M: Error: Unauthorized, please log in
+[2025-08-13T04:18:36.216Z] [31MERROR[39M: Error: Unauthorized, please log in
+[2025-08-13T04:18:37.280Z] [31MERROR[39M: Error: Unauthorized, please log in
+[2025-08-13T04:18:49.211Z] [31MERROR[39M: Error: Unauthorized, please log in
+[2025-08-13T04:18:49.218Z] [31MERROR[39M: Error: Unauthorized, please log in
+[2025-08-13T04:18:49.232Z] [31MERROR[39M: Error: Unauthorized, please log in
+[2025-08-13T04:18:49.236Z] [31MERROR[39M: Error: Unauthorized, please log in
+[2025-08-13T04:18:49.817Z] [31MERROR[39M: Error: Unauthorized, please log in
+[2025-08-13T04:19:00.503Z] [31MERROR[39M: Error: Cannot read properties of undefined (reading 'donorService')
+[2025-08-13T04:23:48.431Z] [31MERROR[39M: Error: Unauthorized, please log in
+[2025-08-13T04:28:01.167Z] [31MERROR[39M: Error: Unauthorized, please log in
+[2025-08-13T04:56:26.133Z] [31MERROR[39M: Error: Can't find /api/v1/auth/signin on this server! not found
+[2025-08-13T04:56:46.993Z] [31MERROR[39M: Error: Email or password is incorrect.
+[2025-08-13T04:57:55.871Z] [31MERROR[39M: Error: Can't find /api/v1/auth/signup on this server! not found
+[2025-08-13T04:58:22.291Z] [31MERROR[39M: Error: Email or password is incorrect.

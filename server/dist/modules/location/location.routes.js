@@ -5,9 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const protect_1 = __importDefault(require("@/shared/middlewares/protect"));
-const location_controller_1 = require("./location.controller");
+const location_factory_1 = require("./location.factory");
 const router = (0, express_1.Router)();
-const locationController = new location_controller_1.LocationController();
+const locationController = (0, location_factory_1.makeLocationController)();
 router.post("/", protect_1.default, (req, res, next) => locationController.createLocation(req, res, next));
 router.get("/:id", protect_1.default, (req, res, next) => locationController.getLocationById(req, res, next));
 router.get("/", protect_1.default, (req, res, next) => locationController.getLocations(req, res, next));

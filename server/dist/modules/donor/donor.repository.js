@@ -20,21 +20,12 @@ class DonorRepository {
             return database_config_1.default.donor.create({ data });
         });
     }
-    createDeferral(data) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return database_config_1.default.donorDeferral.create({
-                data,
-            });
-        });
-    }
     findById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             return database_config_1.default.donor.findUnique({
                 where: { id },
                 include: {
-                    location: true,
                     donations: true,
-                    deferrals: true,
                     calls: true,
                     reservations: true,
                 },
@@ -45,7 +36,6 @@ class DonorRepository {
         return __awaiter(this, void 0, void 0, function* () {
             return database_config_1.default.donor.findUnique({
                 where: { email },
-                include: { location: true },
             });
         });
     }
@@ -56,7 +46,6 @@ class DonorRepository {
                 take: params.take,
                 where: params.where,
                 orderBy: params.orderBy,
-                include: { location: true, deferrals: true },
             });
         });
     }
@@ -70,7 +59,6 @@ class DonorRepository {
             return database_config_1.default.donor.update({
                 where: { id },
                 data,
-                include: { location: true },
             });
         });
     }

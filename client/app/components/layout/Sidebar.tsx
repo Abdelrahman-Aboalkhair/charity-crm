@@ -24,7 +24,7 @@ const navigation = [
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },
 ]
 
-export function Sidebar() {
+export default function Sidebar() {
   const pathname = usePathname()
 
   return (

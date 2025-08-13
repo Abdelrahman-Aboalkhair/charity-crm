@@ -14,8 +14,10 @@ import {
 import { useGetDonationsQuery, useDeleteDonationMutation } from "@/store/api";
 
 export default function DonationsPage() {
-  const { data: donations, isLoading, error } = useGetDonationsQuery();
+  const { data: donationsData, isLoading, error } = useGetDonationsQuery({ page: 1, limit: 100 });
   const [deleteDonation] = useDeleteDonationMutation();
+
+  const donations = donationsData?.donations || [];
 
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this donation?")) {
@@ -27,26 +29,13 @@ export default function DonationsPage() {
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "APPROVED":
-        return "bg-green-100 text-green-800";
-      case "PENDING":
-        return "bg-yellow-100 text-yellow-800";
-      case "REJECTED":
-        return "bg-red-100 text-red-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
-
   if (isLoading) {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Donations</h1>
-            <p className="text-gray-600">Track and manage donations</p>
+            <p className="text-gray-600">Manage your donation records</p>
           </div>
         </div>
         <Card>
@@ -64,7 +53,7 @@ export default function DonationsPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Donations</h1>
-            <p className="text-gray-600">Track and manage donations</p>
+            <p className="text-gray-600">Manage your donation records</p>
           </div>
         </div>
         <Card>
@@ -83,7 +72,7 @@ export default function DonationsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Donations</h1>
-          <p className="text-gray-600">Track and manage donations</p>
+          <p className="text-gray-600">Manage your donation records</p>
         </div>
         <Button>
           <Plus className="h-4 w-4 mr-2" />
@@ -93,7 +82,7 @@ export default function DonationsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>All Donations ({donations?.length || 0})</CardTitle>
+          <CardTitle>All Donations ({donationsData?.total || 0})</CardTitle>
         </CardHeader>
         <CardContent>
           {donations && donations.length > 0 ? (
@@ -103,7 +92,6 @@ export default function DonationsPage() {
                   <TableHead>Donor</TableHead>
                   <TableHead>Date</TableHead>
                   <TableHead>Status</TableHead>
-                  <TableHead>Location</TableHead>
                   <TableHead>Created By</TableHead>
                   <TableHead>Actions</TableHead>
                 </TableRow>
@@ -119,17 +107,18 @@ export default function DonationsPage() {
                     </TableCell>
                     <TableCell>
                       <span
-                        className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(
-                          donation.status
-                        )}`}
+                        className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          donation.status === "APPROVED"
+                            ? "bg-green-100 text-green-800"
+                            : donation.status === "PENDING"
+                            ? "bg-yellow-100 text-yellow-800"
+                            : "bg-red-100 text-red-800"
+                        }`}
                       >
                         {donation.status}
                       </span>
                     </TableCell>
-                    <TableCell>{donation.location_id || "N/A"}</TableCell>
-                    <TableCell>
-                      {donation.created_by_user_id || "N/A"}
-                    </TableCell>
+                    <TableCell>{donation.created_by_user?.name || "Unknown"}</TableCell>
                     <TableCell>
                       <div className="flex items-center space-x-2">
                         <Button variant="ghost" size="icon">

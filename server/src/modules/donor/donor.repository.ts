@@ -6,19 +6,11 @@ export class DonorRepository {
     return prisma.donor.create({ data });
   }
 
-  async createDeferral(data: any): Promise<any> {
-    return prisma.donorDeferral.create({
-      data,
-    });
-  }
-
   async findById(id: string): Promise<Donor | null> {
     return prisma.donor.findUnique({
       where: { id },
       include: {
-        location: true,
         donations: true,
-        deferrals: true,
         calls: true,
         reservations: true,
       },
@@ -28,7 +20,6 @@ export class DonorRepository {
   async findByEmail(email: string): Promise<Donor | null> {
     return prisma.donor.findUnique({
       where: { email },
-      include: { location: true },
     });
   }
 
@@ -43,7 +34,6 @@ export class DonorRepository {
       take: params.take,
       where: params.where,
       orderBy: params.orderBy,
-      include: { location: true, deferrals: true },
     });
   }
 
@@ -55,7 +45,6 @@ export class DonorRepository {
     return prisma.donor.update({
       where: { id },
       data,
-      include: { location: true },
     });
   }
 

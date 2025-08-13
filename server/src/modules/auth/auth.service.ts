@@ -1,6 +1,5 @@
 import crypto from "crypto";
 import AppError from "@/shared/errors/AppError";
-import emailQueue from "@/infra/queues/emailQueue";
 import sendEmail from "@/shared/utils/sendEmail";
 import passwordResetTemplate from "@/shared/templates/passwordReset";
 import { tokenUtils, passwordUtils } from "@/shared/utils/authUtils";
@@ -29,34 +28,12 @@ export class AuthService {
       );
     }
 
-    const emailVerificationToken = Math.random()
-      .toString(36)
-      .slice(-6)
-      .toUpperCase();
-    const emailVerificationTokenExpiresAt = new Date(
-      Date.now() + 10 * 60 * 1000
-    );
-
     const newUser = await this.authRepository.createUser({
       email,
       name,
       password,
-      emailVerificationToken,
-      emailVerificationTokenExpiresAt,
       role: role || ROLE.USER,
-      emailVerified: false,
     });
-
-    await emailQueue
-      .add("sendVerificationEmail", {
-        to: email,
-        subject: "Verify Your Email - EgWinch",
-        text: `Your verification code is: ${emailVerificationToken}`,
-        html: `<p>Your verification code is: <strong>${emailVerificationToken}</strong></p>`,
-      })
-      .catch((error) => {
-        console.error("Failed to add email to queue:", error);
-      });
 
     const accessToken = tokenUtils.generateAccessToken(newUser.id);
     const refreshToken = tokenUtils.generateRefreshToken(newUser.id);
@@ -72,37 +49,6 @@ export class AuthService {
       accessToken,
       refreshToken,
     };
-  }
-
-  async sendVerificationEmail(email: string): Promise<{ message: string }> {
-    const user = await this.authRepository.findUserByEmail(email);
-
-    if (!user) {
-      throw new AppError(404, "User not found");
-    }
-
-    const emailVerificationToken = Math.random().toString(36).slice(-6);
-    const emailVerificationTokenExpiresAt = new Date(
-      Date.now() + 10 * 60 * 1000
-    );
-
-    await this.authRepository.updateUserEmailVerification(user.id, {
-      emailVerificationToken,
-      emailVerificationTokenExpiresAt,
-    });
-
-    await emailQueue
-      .add("sendVerificationEmail", {
-        to: email,
-        subject: "Verify Your Email - KgKraft",
-        text: `Your verification code is: ${emailVerificationToken}`,
-        html: `<p>Your verification code is: <strong>${emailVerificationToken}</strong></p>`,
-      })
-      .catch((error) => {
-        console.error("Failed to add email to queue:", error);
-      });
-
-    return { message: "A new verification code has been sent to your email" };
   }
 
   async signin({ email, password }: SignInParams): Promise<{
@@ -218,7 +164,6 @@ export class AuthService {
     }
 
     const user = await this.authRepository.findUserById(decoded.id);
-    console.log("refreshed user: ", user);
 
     if (!user) {
       throw new NotFoundError("User");

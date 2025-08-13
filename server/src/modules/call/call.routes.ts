@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { CallController } from "./call.controller";
 import protect from "@/shared/middlewares/protect";
+import { makeCallController } from "./call.factory";
 
 const router = Router();
-const callController = new CallController();
+const callController = makeCallController();
 
 router.post("/", protect, (req, res, next) =>
   callController.logCall(req, res, next)

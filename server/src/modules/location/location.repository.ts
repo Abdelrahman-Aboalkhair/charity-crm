@@ -9,7 +9,6 @@ export class LocationRepository {
   async findById(id: string): Promise<Location | null> {
     return prisma.location.findUnique({
       where: { id },
-      include: { donors: true, donations: true },
     });
   }
 
@@ -24,7 +23,6 @@ export class LocationRepository {
       take: params.take,
       where: params.where,
       orderBy: params.orderBy,
-      include: { donors: true, donations: true },
     });
   }
 
@@ -39,7 +37,6 @@ export class LocationRepository {
     return prisma.location.update({
       where: { id },
       data,
-      include: { donors: true, donations: true },
     });
   }
 

@@ -1,40 +1,44 @@
 'use client'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Users, Heart, Phone, Calendar, TrendingUp } from 'lucide-react'
+import { Users, Heart, Phone, Calendar } from 'lucide-react'
 import { useGetDonorsQuery, useGetDonationsQuery, useGetCallsQuery, useGetReservationsQuery } from '@/store/api'
 
 export default function DashboardPage() {
-  const { data: donors, isLoading: donorsLoading } = useGetDonorsQuery()
-  const { data: donations, isLoading: donationsLoading } = useGetDonationsQuery()
-  const { data: calls, isLoading: callsLoading } = useGetCallsQuery()
-  const { data: reservations, isLoading: reservationsLoading } = useGetReservationsQuery()
+  const { data: donorsData } = useGetDonorsQuery({ page: 1, limit: 1000 })
+  const { data: donationsData, isLoading: donationsLoading } = useGetDonationsQuery({ page: 1, limit: 1000 })
+  const { data: callsData, isLoading: callsLoading } = useGetCallsQuery({ page: 1, limit: 1000 })
+  const { data: reservationsData } = useGetReservationsQuery({ page: 1, limit: 1000 })
+
+  const donations = donationsData?.donations || []
+  const calls = callsData?.calls || []
+  const reservations = reservationsData?.reservations || []
 
   const stats = [
     {
       title: 'Total Donors',
-      value: donors?.length || 0,
+      value: donorsData?.total || 0,
       icon: Users,
       color: 'text-blue-600',
       bgColor: 'bg-blue-100'
     },
     {
       title: 'Total Donations',
-      value: donations?.length || 0,
+      value: donationsData?.total || 0,
       icon: Heart,
       color: 'text-red-600',
       bgColor: 'bg-red-100'
     },
     {
       title: 'Total Calls',
-      value: calls?.length || 0,
+      value: callsData?.total || 0,
       icon: Phone,
       color: 'text-green-600',
       bgColor: 'bg-green-100'
     },
     {
       title: 'Active Reservations',
-      value: reservations?.filter(r => r.status === 'ACTIVE').length || 0,
+      value: reservations.filter(r => r.status === 'ACTIVE').length || 0,
       icon: Calendar,
       color: 'text-purple-600',
       bgColor: 'bg-purple-100'

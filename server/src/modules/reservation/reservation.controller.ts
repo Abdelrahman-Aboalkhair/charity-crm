@@ -3,11 +3,7 @@ import sendResponse from "@/shared/utils/sendResponse";
 import { ReservationService } from "./reservation.service";
 
 export class ReservationController {
-  private reservationService: ReservationService;
-
-  constructor() {
-    this.reservationService = new ReservationService();
-  }
+  constructor(private reservationService: ReservationService) {}
 
   async createReservation(
     req: Request,

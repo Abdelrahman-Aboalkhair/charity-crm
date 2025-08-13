@@ -9,7 +9,7 @@ export class ReservationRepository {
   async findById(id: string): Promise<Reservation | null> {
     return prisma.reservation.findUnique({
       where: { id },
-      include: { donor: true, reserved_by_user: true, call: true },
+      include: { donor: true, reserved_by_user: true },
     });
   }
 
@@ -35,7 +35,7 @@ export class ReservationRepository {
       take: params.take,
       where: params.where,
       orderBy: params.orderBy,
-      include: { donor: true, reserved_by_user: true, call: true },
+      include: { donor: true, reserved_by_user: true },
     });
   }
 
@@ -50,7 +50,7 @@ export class ReservationRepository {
     return prisma.reservation.update({
       where: { id },
       data,
-      include: { donor: true, reserved_by_user: true, call: true },
+      include: { donor: true, reserved_by_user: true },
     });
   }
 

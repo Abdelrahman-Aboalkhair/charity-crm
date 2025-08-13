@@ -68,12 +68,11 @@ class DonorController {
     getDonors(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { page = "1", limit = "10", search, onlyActive = false, } = req.query;
+                const { page = "1", limit = "10", search } = req.query;
                 const result = yield this.donorService.getDonors({
                     page: parseInt(page),
                     limit: parseInt(limit),
                     search: search,
-                    onlyActive: onlyActive === "true",
                 });
                 (0, sendResponse_1.default)(res, 200, {
                     data: { donors: result.donors, total: result.total },

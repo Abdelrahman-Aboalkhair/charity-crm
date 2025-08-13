@@ -3,11 +3,7 @@ import { LocationService } from "./location.service";
 import sendResponse from "@/shared/utils/sendResponse";
 
 export class LocationController {
-  private locationService: LocationService;
-
-  constructor() {
-    this.locationService = new LocationService();
-  }
+  constructor(private locationService: LocationService) {}
 
   async createLocation(
     req: Request,

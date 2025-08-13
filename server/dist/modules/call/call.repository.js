@@ -24,7 +24,7 @@ class CallRepository {
         return __awaiter(this, void 0, void 0, function* () {
             return database_config_1.default.call.findUnique({
                 where: { id },
-                include: { donor: true, called_by_user: true, reservation: true },
+                include: { donor: true, called_by_user: true },
             });
         });
     }
@@ -35,7 +35,7 @@ class CallRepository {
                 take: params.take,
                 where: params.where,
                 orderBy: params.orderBy,
-                include: { donor: true, called_by_user: true, reservation: true },
+                include: { donor: true, called_by_user: true },
             });
         });
     }
@@ -49,7 +49,7 @@ class CallRepository {
             return database_config_1.default.call.update({
                 where: { id },
                 data,
-                include: { donor: true, called_by_user: true, reservation: true },
+                include: { donor: true, called_by_user: true },
             });
         });
     }

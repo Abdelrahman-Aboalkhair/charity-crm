@@ -3,11 +3,7 @@ import sendResponse from "@/shared/utils/sendResponse";
 import { CallService } from "./call.service";
 
 export class CallController {
-  private callService: CallService;
-
-  constructor() {
-    this.callService = new CallService();
-  }
+  constructor(private callService: CallService) {}
 
   async logCall(
     req: Request,

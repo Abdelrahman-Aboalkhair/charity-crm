@@ -9,7 +9,7 @@ export class CallRepository {
   async findById(id: string): Promise<Call | null> {
     return prisma.call.findUnique({
       where: { id },
-      include: { donor: true, called_by_user: true, reservation: true },
+      include: { donor: true, called_by_user: true },
     });
   }
 
@@ -24,7 +24,7 @@ export class CallRepository {
       take: params.take,
       where: params.where,
       orderBy: params.orderBy,
-      include: { donor: true, called_by_user: true, reservation: true },
+      include: { donor: true, called_by_user: true },
     });
   }
 
@@ -36,7 +36,7 @@ export class CallRepository {
     return prisma.call.update({
       where: { id },
       data,
-      include: { donor: true, called_by_user: true, reservation: true },
+      include: { donor: true, called_by_user: true },
     });
   }
 

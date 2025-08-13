@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus, Edit, Trash2, Eye, MapPin } from "lucide-react";
+import { Plus, Edit, Trash2, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -14,8 +14,10 @@ import {
 import { useGetLocationsQuery, useDeleteLocationMutation } from "@/store/api";
 
 export default function LocationsPage() {
-  const { data: locations, isLoading, error } = useGetLocationsQuery();
+  const { data: locationsData, isLoading, error } = useGetLocationsQuery({ page: 1, limit: 100 });
   const [deleteLocation] = useDeleteLocationMutation();
+
+  const locations = locationsData?.locations || [];
 
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this location?")) {
@@ -33,9 +35,7 @@ export default function LocationsPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Locations</h1>
-            <p className="text-gray-600">
-              Manage donation centers and locations
-            </p>
+            <p className="text-gray-600">Manage your donation locations</p>
           </div>
         </div>
         <Card>
@@ -53,9 +53,7 @@ export default function LocationsPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Locations</h1>
-            <p className="text-gray-600">
-              Manage donation centers and locations
-            </p>
+            <p className="text-gray-600">Manage your donation locations</p>
           </div>
         </div>
         <Card>
@@ -74,7 +72,7 @@ export default function LocationsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Locations</h1>
-          <p className="text-gray-600">Manage donation centers and locations</p>
+          <p className="text-gray-600">Manage your donation locations</p>
         </div>
         <Button>
           <Plus className="h-4 w-4 mr-2" />
@@ -84,7 +82,7 @@ export default function LocationsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>All Locations ({locations?.length || 0})</CardTitle>
+          <CardTitle>All Locations ({locationsData?.total || 0})</CardTitle>
         </CardHeader>
         <CardContent>
           {locations && locations.length > 0 ? (
@@ -93,24 +91,15 @@ export default function LocationsPage() {
                 <TableRow>
                   <TableHead>Name</TableHead>
                   <TableHead>Type</TableHead>
-                  <TableHead>Created At</TableHead>
+                  <TableHead>Created</TableHead>
                   <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {locations.map((location) => (
                   <TableRow key={location.id}>
-                    <TableCell className="font-medium">
-                      <div className="flex items-center space-x-2">
-                        <MapPin className="h-4 w-4 text-gray-400" />
-                        <span>{location.name}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {location.type}
-                      </span>
-                    </TableCell>
+                    <TableCell className="font-medium">{location.name}</TableCell>
+                    <TableCell>{location.type}</TableCell>
                     <TableCell>
                       {new Date(location.createdAt).toLocaleDateString()}
                     </TableCell>

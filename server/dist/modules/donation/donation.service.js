@@ -15,17 +15,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DonationService = void 0;
 const AppError_1 = __importDefault(require("@/shared/errors/AppError"));
 class DonationService {
-    constructor(donorRepository, donationRepository, donorService) {
+    constructor(donorRepository, donationRepository) {
         this.donorRepository = donorRepository;
         this.donationRepository = donationRepository;
-        this.donorService = donorService;
     }
-    createDonation(data, userId, deferral) {
+    createDonation(data, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const donor = yield this.donorRepository.findById(data.donor_id);
             if (!donor)
                 throw new AppError_1.default(404, "Donor not found");
-            return this.donorService.createDonationWithDeferral(data, userId, deferral);
+            return this.donationRepository.create(Object.assign(Object.assign({}, data), { created_by_user_id: userId, date: new Date(data.date) }));
         });
     }
     getDonationById(id) {
@@ -60,13 +59,7 @@ class DonationService {
             const donation = yield this.donationRepository.findById(id);
             if (!donation)
                 throw new AppError_1.default(404, "Donation not found");
-            const updatedDonation = yield this.donationRepository.update(id, data);
-            if (data.date || data.status) {
-                const donor = yield this.donorRepository.findById(donation.donor_id);
-                if (donor)
-                    yield this.donorService.computeDonorStatus(donor);
-            }
-            return updatedDonation;
+            return this.donationRepository.update(id, data);
         });
     }
     deleteDonation(id) {

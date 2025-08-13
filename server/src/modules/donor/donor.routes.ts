@@ -5,15 +5,27 @@ import { makeDonorController } from "./donor.factory";
 const router = Router();
 const donorController = makeDonorController();
 
-router.post("/", protect, donorController.createDonor);
-router.post("/bulk", protect, donorController.bulkImportDonors);
+router.post("/", protect, (req, res, next) =>
+  donorController.createDonor(req, res, next)
+);
+router.post("/bulk", protect, (req, res, next) =>
+  donorController.bulkImportDonors(req, res, next)
+);
 
-router.get("/:id", protect, donorController.getDonorById);
+router.get("/:id", protect, (req, res, next) =>
+  donorController.getDonorById(req, res, next)
+);
 
-router.get("/", protect, donorController.getDonors);
+router.get("/", protect, (req, res, next) =>
+  donorController.getDonors(req, res, next)
+);
 
-router.put("/:id", protect, donorController.updateDonor);
+router.put("/:id", protect, (req, res, next) =>
+  donorController.updateDonor(req, res, next)
+);
 
-router.delete("/:id", protect, donorController.deleteDonor);
+router.delete("/:id", protect, (req, res, next) =>
+  donorController.deleteDonor(req, res, next)
+);
 
 export default router;

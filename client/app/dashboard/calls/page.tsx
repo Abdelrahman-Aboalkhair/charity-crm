@@ -14,11 +14,13 @@ import {
 import { useGetCallsQuery, useDeleteCallMutation } from "@/store/api";
 
 export default function CallsPage() {
-  const { data: calls, isLoading, error } = useGetCallsQuery();
+  const { data: callsData, isLoading, error } = useGetCallsQuery({ page: 1, limit: 100 });
   const [deleteCall] = useDeleteCallMutation();
 
+  const calls = callsData?.calls || [];
+
   const handleDelete = async (id: string) => {
-    if (confirm("Are you sure you want to delete this call record?")) {
+    if (confirm("Are you sure you want to delete this call?")) {
       try {
         await deleteCall(id).unwrap();
       } catch (error) {
@@ -33,7 +35,7 @@ export default function CallsPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Calls</h1>
-            <p className="text-gray-600">Track donor communication</p>
+            <p className="text-gray-600">Manage your call records</p>
           </div>
         </div>
         <Card>
@@ -51,7 +53,7 @@ export default function CallsPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Calls</h1>
-            <p className="text-gray-600">Track donor communication</p>
+            <p className="text-gray-600">Manage your call records</p>
           </div>
         </div>
         <Card>
@@ -70,7 +72,7 @@ export default function CallsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Calls</h1>
-          <p className="text-gray-600">Track donor communication</p>
+          <p className="text-gray-600">Manage your call records</p>
         </div>
         <Button>
           <Plus className="h-4 w-4 mr-2" />
@@ -80,7 +82,7 @@ export default function CallsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>All Calls ({calls?.length || 0})</CardTitle>
+          <CardTitle>All Calls ({callsData?.total || 0})</CardTitle>
         </CardHeader>
         <CardContent>
           {calls && calls.length > 0 ? (
@@ -88,10 +90,9 @@ export default function CallsPage() {
               <TableHeader>
                 <TableRow>
                   <TableHead>Donor</TableHead>
-                  <TableHead>Call Date</TableHead>
+                  <TableHead>Date</TableHead>
                   <TableHead>Outcome</TableHead>
                   <TableHead>Called By</TableHead>
-                  <TableHead>Notes</TableHead>
                   <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -104,15 +105,8 @@ export default function CallsPage() {
                     <TableCell>
                       {new Date(call.call_date).toLocaleDateString()}
                     </TableCell>
-                    <TableCell>
-                      <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {call.outcome}
-                      </span>
-                    </TableCell>
-                    <TableCell>{call.called_by_user_id}</TableCell>
-                    <TableCell className="max-w-xs truncate">
-                      {call.notes || "No notes"}
-                    </TableCell>
+                    <TableCell>{call.outcome}</TableCell>
+                    <TableCell>{call.called_by_user?.name || "Unknown"}</TableCell>
                     <TableCell>
                       <div className="flex items-center space-x-2">
                         <Button variant="ghost" size="icon">
@@ -136,7 +130,7 @@ export default function CallsPage() {
             </Table>
           ) : (
             <div className="text-center py-8 text-gray-500">
-              No calls found. Add your first call record to get started.
+              No calls found. Add your first call to get started.
             </div>
           )}
         </CardContent>

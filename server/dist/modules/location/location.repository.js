@@ -24,7 +24,6 @@ class LocationRepository {
         return __awaiter(this, void 0, void 0, function* () {
             return database_config_1.default.location.findUnique({
                 where: { id },
-                include: { donors: true, donations: true },
             });
         });
     }
@@ -35,7 +34,6 @@ class LocationRepository {
                 take: params.take,
                 where: params.where,
                 orderBy: params.orderBy,
-                include: { donors: true, donations: true },
             });
         });
     }
@@ -49,7 +47,6 @@ class LocationRepository {
             return database_config_1.default.location.update({
                 where: { id },
                 data,
-                include: { donors: true, donations: true },
             });
         });
     }

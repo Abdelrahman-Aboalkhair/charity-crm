@@ -24,7 +24,7 @@ class ReservationRepository {
         return __awaiter(this, void 0, void 0, function* () {
             return database_config_1.default.reservation.findUnique({
                 where: { id },
-                include: { donor: true, reserved_by_user: true, call: true },
+                include: { donor: true, reserved_by_user: true },
             });
         });
     }
@@ -47,7 +47,7 @@ class ReservationRepository {
                 take: params.take,
                 where: params.where,
                 orderBy: params.orderBy,
-                include: { donor: true, reserved_by_user: true, call: true },
+                include: { donor: true, reserved_by_user: true },
             });
         });
     }
@@ -61,7 +61,7 @@ class ReservationRepository {
             return database_config_1.default.reservation.update({
                 where: { id },
                 data,
-                include: { donor: true, reserved_by_user: true, call: true },
+                include: { donor: true, reserved_by_user: true },
             });
         });
     }

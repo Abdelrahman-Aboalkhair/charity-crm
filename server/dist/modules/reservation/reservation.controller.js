@@ -14,10 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReservationController = void 0;
 const sendResponse_1 = __importDefault(require("@/shared/utils/sendResponse"));
-const reservation_service_1 = require("./reservation.service");
 class ReservationController {
-    constructor() {
-        this.reservationService = new reservation_service_1.ReservationService();
+    constructor(reservationService) {
+        this.reservationService = reservationService;
     }
     createReservation(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {

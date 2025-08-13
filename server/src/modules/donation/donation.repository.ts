@@ -11,9 +11,7 @@ export class DonationRepository {
       where: { id },
       include: {
         donor: true,
-        location: true,
         created_by_user: true,
-        deferral: true,
       },
     });
   }
@@ -29,7 +27,7 @@ export class DonationRepository {
       take: params.take,
       where: params.where,
       orderBy: params.orderBy,
-      include: { donor: true, location: true, created_by_user: true },
+      include: { donor: true, created_by_user: true },
     });
   }
 
@@ -44,7 +42,7 @@ export class DonationRepository {
     return prisma.donation.update({
       where: { id },
       data,
-      include: { donor: true, location: true, created_by_user: true },
+      include: { donor: true, created_by_user: true },
     });
   }
 

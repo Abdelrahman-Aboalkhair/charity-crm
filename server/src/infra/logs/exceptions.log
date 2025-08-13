@@ -1,22 +1,530 @@
-[2025-08-09T07:43:51.097Z] [31MERROR[39M: uncaughtException: 
-Invalid `this.prisma.log.create()` invocation in
-/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/src/modules/logs/logs.repository.ts:12:28
+[2025-08-13T03:59:43.615Z] [31MERROR[39M: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donor/donor.repository.ts[0m:[93m10[0m:[93m19[0m - [91merror[0m[90m TS2339: [0mProperty 'donorDeferral' does not exist on type 'DynamicClientExtensionThis<TypeMap<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }, {}>, TypeMapCb<PrismaClientOptions>, { result: {}; model: {}; query: {}; client: {}; }>'.
 
-   9 }
-  10 
-  11 async createLog(data: LogEntry) {
-→ 12   return this.prisma.log.create(
-The table `public.Log` does not exist in the current database.
-PrismaClientKnownRequestError: 
-Invalid `this.prisma.log.create()` invocation in
-/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/src/modules/logs/logs.repository.ts:12:28
+[7m10[0m     return prisma.donorDeferral.create({
+[7m  [0m [91m                  ~~~~~~~~~~~~~[0m
+[96msrc/modules/donor/donor.repository.ts[0m:[93m19[0m:[93m9[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'location' does not exist in type 'DonorInclude<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }>'.
 
-   9 }
-  10 
-  11 async createLog(data: LogEntry) {
-→ 12   return this.prisma.log.create(
-The table `public.Log` does not exist in the current database.
-    at zn.handleRequestError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/@prisma/client/runtime/library.js:121:7459)
-    at zn.handleAndLogRequestError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/@prisma/client/runtime/library.js:121:6784)
-    at zn.request (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/@prisma/client/runtime/library.js:121:6491)
-    at async l (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/@prisma/client/runtime/library.js:130:9778)
+[7m19[0m         location: true,
+[7m  [0m [91m        ~~~~~~~~[0m
+
+  [96mnode_modules/.prisma/client/index.d.ts[0m:[93m3454[0m:[93m5[0m
+    [7m3454[0m     include?: DonorInclude<ExtArgs> | null
+    [7m    [0m [96m    ~~~~~~~[0m
+    The expected type comes from property 'include' which is declared here on type 'DonorFindUniqueArgs<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }>'
+[96msrc/modules/donor/donor.repository.ts[0m:[93m31[0m:[93m18[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'location' does not exist in type 'DonorInclude<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | { calls?: Exact<boolean | Donor$callsArgs<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | undefined, boolean | ... 1 more ... | undefined>; reservations?: Exact<...>; donations?: Exact<...>; _count?: Exact<...>; }'.
+
+[7m31[0m       include: { location: true },
+[7m  [0m [91m                 ~~~~~~~~[0m
+
+  [96mnode_modules/.prisma/client/index.d.ts[0m:[93m3454[0m:[93m5[0m
+    [7m3454[0m     include?: DonorInclude<ExtArgs> | null
+    [7m    [0m [96m    ~~~~~~~[0m
+    The expected type comes from property 'include' which is declared here on type '{ select?: Exact<DonorSelect<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | null | undefined, DonorSelect<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | null | undefined>; omit?: Exact<...>; include?: Exact<...>; where: Exact<...>; }'
+[96msrc/modules/donor/donor.repository.ts[0m:[93m46[0m:[93m18[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'location' does not exist in type 'DonorInclude<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | { calls?: Exact<boolean | Donor$callsArgs<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | undefined, boolean | ... 1 more ... | undefined>; reservations?: Exact<...>; donations?: Exact<...>; _count?: Exact<...>; }'.
+
+[7m46[0m       include: { location: true, deferrals: true },
+[7m  [0m [91m                 ~~~~~~~~[0m
+[96msrc/modules/donor/donor.repository.ts[0m:[93m58[0m:[93m18[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'location' does not exist in type 'DonorInclude<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | { calls?: Exact<boolean | Donor$callsArgs<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | undefined, boolean | ... 1 more ... | undefined>; reservations?: Exact<...>; donations?: Exact<...>; _count?: Exact<...>; }'.
+
+[7m58[0m       include: { location: true },
+[7m  [0m [91m                 ~~~~~~~~[0m
+
+  [96mnode_modules/.prisma/client/index.d.ts[0m:[93m3701[0m:[93m5[0m
+    [7m3701[0m     include?: DonorInclude<ExtArgs> | null
+    [7m    [0m [96m    ~~~~~~~[0m
+    The expected type comes from property 'include' which is declared here on type '{ select?: Exact<DonorSelect<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | null | undefined, DonorSelect<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | null | undefined>; omit?: Exact<...>; include?: Exact<...>; data: Exact<...>; where: Exact<...>; }'
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donor/donor.repository.ts[0m:[93m10[0m:[93m19[0m - [91merror[0m[90m TS2339: [0mProperty 'donorDeferral' does not exist on type 'DynamicClientExtensionThis<TypeMap<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }, {}>, TypeMapCb<PrismaClientOptions>, { result: {}; model: {}; query: {}; client: {}; }>'.
+
+[7m10[0m     return prisma.donorDeferral.create({
+[7m  [0m [91m                  ~~~~~~~~~~~~~[0m
+[96msrc/modules/donor/donor.repository.ts[0m:[93m19[0m:[93m9[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'location' does not exist in type 'DonorInclude<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }>'.
+
+[7m19[0m         location: true,
+[7m  [0m [91m        ~~~~~~~~[0m
+
+  [96mnode_modules/.prisma/client/index.d.ts[0m:[93m3454[0m:[93m5[0m
+    [7m3454[0m     include?: DonorInclude<ExtArgs> | null
+    [7m    [0m [96m    ~~~~~~~[0m
+    The expected type comes from property 'include' which is declared here on type 'DonorFindUniqueArgs<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }>'
+[96msrc/modules/donor/donor.repository.ts[0m:[93m31[0m:[93m18[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'location' does not exist in type 'DonorInclude<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | { calls?: Exact<boolean | Donor$callsArgs<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | undefined, boolean | ... 1 more ... | undefined>; reservations?: Exact<...>; donations?: Exact<...>; _count?: Exact<...>; }'.
+
+[7m31[0m       include: { location: true },
+[7m  [0m [91m                 ~~~~~~~~[0m
+
+  [96mnode_modules/.prisma/client/index.d.ts[0m:[93m3454[0m:[93m5[0m
+    [7m3454[0m     include?: DonorInclude<ExtArgs> | null
+    [7m    [0m [96m    ~~~~~~~[0m
+    The expected type comes from property 'include' which is declared here on type '{ select?: Exact<DonorSelect<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | null | undefined, DonorSelect<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | null | undefined>; omit?: Exact<...>; include?: Exact<...>; where: Exact<...>; }'
+[96msrc/modules/donor/donor.repository.ts[0m:[93m46[0m:[93m18[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'location' does not exist in type 'DonorInclude<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | { calls?: Exact<boolean | Donor$callsArgs<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | undefined, boolean | ... 1 more ... | undefined>; reservations?: Exact<...>; donations?: Exact<...>; _count?: Exact<...>; }'.
+
+[7m46[0m       include: { location: true, deferrals: true },
+[7m  [0m [91m                 ~~~~~~~~[0m
+[96msrc/modules/donor/donor.repository.ts[0m:[93m58[0m:[93m18[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'location' does not exist in type 'DonorInclude<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | { calls?: Exact<boolean | Donor$callsArgs<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | undefined, boolean | ... 1 more ... | undefined>; reservations?: Exact<...>; donations?: Exact<...>; _count?: Exact<...>; }'.
+
+[7m58[0m       include: { location: true },
+[7m  [0m [91m                 ~~~~~~~~[0m
+
+  [96mnode_modules/.prisma/client/index.d.ts[0m:[93m3701[0m:[93m5[0m
+    [7m3701[0m     include?: DonorInclude<ExtArgs> | null
+    [7m    [0m [96m    ~~~~~~~[0m
+    The expected type comes from property 'include' which is declared here on type '{ select?: Exact<DonorSelect<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | null | undefined, DonorSelect<InternalArgs & { result: {}; model: {}; query: {}; client: {}; }> | null | undefined>; omit?: Exact<...>; include?: Exact<...>; data: Exact<...>; where: Exact<...>; }'
+
+    at createTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.require.extensions.<computed> [as .ts] (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-08-13T04:01:05.567Z] [31MERROR[39M: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.factory.ts[0m:[93m10[0m:[93m52[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m10[0m   const donorService = new DonorService(donorRepo, donationRepo);
+[7m  [0m [91m                                                   ~~~~~~~~~~~~[0m
+[96msrc/modules/donation/donation.factory.ts[0m:[93m14[0m:[93m5[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m14[0m     donorService
+[7m  [0m [91m    ~~~~~~~~~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.factory.ts[0m:[93m10[0m:[93m52[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m10[0m   const donorService = new DonorService(donorRepo, donationRepo);
+[7m  [0m [91m                                                   ~~~~~~~~~~~~[0m
+[96msrc/modules/donation/donation.factory.ts[0m:[93m14[0m:[93m5[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m14[0m     donorService
+[7m  [0m [91m    ~~~~~~~~~~~~[0m
+
+    at createTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.require.extensions.<computed> [as .ts] (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-08-13T04:01:27.008Z] [31MERROR[39M: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.factory.ts[0m:[93m10[0m:[93m52[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m10[0m   const donorService = new DonorService(donorRepo, donationRepo);
+[7m  [0m [91m                                                   ~~~~~~~~~~~~[0m
+[96msrc/modules/donation/donation.factory.ts[0m:[93m14[0m:[93m5[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m14[0m     donorService
+[7m  [0m [91m    ~~~~~~~~~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.factory.ts[0m:[93m10[0m:[93m52[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m10[0m   const donorService = new DonorService(donorRepo, donationRepo);
+[7m  [0m [91m                                                   ~~~~~~~~~~~~[0m
+[96msrc/modules/donation/donation.factory.ts[0m:[93m14[0m:[93m5[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m14[0m     donorService
+[7m  [0m [91m    ~~~~~~~~~~~~[0m
+
+    at createTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.require.extensions.<computed> [as .ts] (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-08-13T04:01:52.373Z] [31MERROR[39M: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.factory.ts[0m:[93m10[0m:[93m52[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m10[0m   const donorService = new DonorService(donorRepo, donationRepo);
+[7m  [0m [91m                                                   ~~~~~~~~~~~~[0m
+[96msrc/modules/donation/donation.factory.ts[0m:[93m14[0m:[93m5[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m14[0m     donorService
+[7m  [0m [91m    ~~~~~~~~~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.factory.ts[0m:[93m10[0m:[93m52[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m10[0m   const donorService = new DonorService(donorRepo, donationRepo);
+[7m  [0m [91m                                                   ~~~~~~~~~~~~[0m
+[96msrc/modules/donation/donation.factory.ts[0m:[93m14[0m:[93m5[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m14[0m     donorService
+[7m  [0m [91m    ~~~~~~~~~~~~[0m
+
+    at createTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.require.extensions.<computed> [as .ts] (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-08-13T04:02:11.084Z] [31MERROR[39M: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.factory.ts[0m:[93m10[0m:[93m52[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m10[0m   const donorService = new DonorService(donorRepo, donationRepo);
+[7m  [0m [91m                                                   ~~~~~~~~~~~~[0m
+[96msrc/modules/donation/donation.factory.ts[0m:[93m14[0m:[93m5[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m14[0m     donorService
+[7m  [0m [91m    ~~~~~~~~~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.factory.ts[0m:[93m10[0m:[93m52[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m10[0m   const donorService = new DonorService(donorRepo, donationRepo);
+[7m  [0m [91m                                                   ~~~~~~~~~~~~[0m
+[96msrc/modules/donation/donation.factory.ts[0m:[93m14[0m:[93m5[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m14[0m     donorService
+[7m  [0m [91m    ~~~~~~~~~~~~[0m
+
+    at createTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.require.extensions.<computed> [as .ts] (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-08-13T04:02:30.042Z] [31MERROR[39M: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.factory.ts[0m:[93m10[0m:[93m52[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m10[0m   const donorService = new DonorService(donorRepo, donationRepo);
+[7m  [0m [91m                                                   ~~~~~~~~~~~~[0m
+[96msrc/modules/donation/donation.factory.ts[0m:[93m14[0m:[93m5[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m14[0m     donorService
+[7m  [0m [91m    ~~~~~~~~~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.factory.ts[0m:[93m10[0m:[93m52[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m10[0m   const donorService = new DonorService(donorRepo, donationRepo);
+[7m  [0m [91m                                                   ~~~~~~~~~~~~[0m
+[96msrc/modules/donation/donation.factory.ts[0m:[93m14[0m:[93m5[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m14[0m     donorService
+[7m  [0m [91m    ~~~~~~~~~~~~[0m
+
+    at createTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.require.extensions.<computed> [as .ts] (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-08-13T04:03:00.365Z] [31MERROR[39M: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.controller.ts[0m:[93m19[0m:[93m9[0m - [91merror[0m[90m TS2554: [0mExpected 1-2 arguments, but got 3.
+
+[7m 19[0m         deferral
+[7m   [0m [91m        ~~~~~~~~[0m
+[7m 20[0m           ? {
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m...[0m 
+[7m 25[0m             }
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m 26[0m           : undefined
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.controller.ts[0m:[93m19[0m:[93m9[0m - [91merror[0m[90m TS2554: [0mExpected 1-2 arguments, but got 3.
+
+[7m 19[0m         deferral
+[7m   [0m [91m        ~~~~~~~~[0m
+[7m 20[0m           ? {
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m...[0m 
+[7m 25[0m             }
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m 26[0m           : undefined
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~[0m
+
+    at createTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.require.extensions.<computed> [as .ts] (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-08-13T04:03:18.229Z] [31MERROR[39M: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.controller.ts[0m:[93m19[0m:[93m9[0m - [91merror[0m[90m TS2554: [0mExpected 1-2 arguments, but got 3.
+
+[7m 19[0m         deferral
+[7m   [0m [91m        ~~~~~~~~[0m
+[7m 20[0m           ? {
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m...[0m 
+[7m 25[0m             }
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m 26[0m           : undefined
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.controller.ts[0m:[93m19[0m:[93m9[0m - [91merror[0m[90m TS2554: [0mExpected 1-2 arguments, but got 3.
+
+[7m 19[0m         deferral
+[7m   [0m [91m        ~~~~~~~~[0m
+[7m 20[0m           ? {
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m...[0m 
+[7m 25[0m             }
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m 26[0m           : undefined
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~[0m
+
+    at createTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.require.extensions.<computed> [as .ts] (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-08-13T04:03:40.598Z] [31MERROR[39M: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.controller.ts[0m:[93m19[0m:[93m9[0m - [91merror[0m[90m TS2554: [0mExpected 1-2 arguments, but got 3.
+
+[7m 19[0m         deferral
+[7m   [0m [91m        ~~~~~~~~[0m
+[7m 20[0m           ? {
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m...[0m 
+[7m 25[0m             }
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m 26[0m           : undefined
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.controller.ts[0m:[93m19[0m:[93m9[0m - [91merror[0m[90m TS2554: [0mExpected 1-2 arguments, but got 3.
+
+[7m 19[0m         deferral
+[7m   [0m [91m        ~~~~~~~~[0m
+[7m 20[0m           ? {
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m...[0m 
+[7m 25[0m             }
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m 26[0m           : undefined
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~[0m
+
+    at createTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.require.extensions.<computed> [as .ts] (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-08-13T04:04:03.523Z] [31MERROR[39M: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.controller.ts[0m:[93m19[0m:[93m9[0m - [91merror[0m[90m TS2554: [0mExpected 1-2 arguments, but got 3.
+
+[7m 19[0m         deferral
+[7m   [0m [91m        ~~~~~~~~[0m
+[7m 20[0m           ? {
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m...[0m 
+[7m 25[0m             }
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m 26[0m           : undefined
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.controller.ts[0m:[93m19[0m:[93m9[0m - [91merror[0m[90m TS2554: [0mExpected 1-2 arguments, but got 3.
+
+[7m 19[0m         deferral
+[7m   [0m [91m        ~~~~~~~~[0m
+[7m 20[0m           ? {
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m...[0m 
+[7m 25[0m             }
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m 26[0m           : undefined
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~[0m
+
+    at createTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.require.extensions.<computed> [as .ts] (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-08-13T04:04:22.265Z] [31MERROR[39M: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.controller.ts[0m:[93m19[0m:[93m9[0m - [91merror[0m[90m TS2554: [0mExpected 1-2 arguments, but got 3.
+
+[7m 19[0m         deferral
+[7m   [0m [91m        ~~~~~~~~[0m
+[7m 20[0m           ? {
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m...[0m 
+[7m 25[0m             }
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m 26[0m           : undefined
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/modules/donation/donation.controller.ts[0m:[93m19[0m:[93m9[0m - [91merror[0m[90m TS2554: [0mExpected 1-2 arguments, but got 3.
+
+[7m 19[0m         deferral
+[7m   [0m [91m        ~~~~~~~~[0m
+[7m 20[0m           ? {
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m...[0m 
+[7m 25[0m             }
+[7m   [0m [91m~~~~~~~~~~~~~[0m
+[7m 26[0m           : undefined
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~[0m
+
+    at createTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.require.extensions.<computed> [as .ts] (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-08-13T04:20:48.822Z] [31MERROR[39M: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/modules/reservation/reservation.factory.ts[0m:[93m9[0m:[93m53[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 2.
+
+[7m9[0m   const reservationService = new ReservationService(reservationRepository, donorRepository);
+[7m [0m [91m                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/reservation/reservation.factory.ts[0m:[93m10[0m:[93m59[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m10[0m   const reservationController = new ReservationController(reservationService);
+[7m  [0m [91m                                                          ~~~~~~~~~~~~~~~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/modules/reservation/reservation.factory.ts[0m:[93m9[0m:[93m53[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 2.
+
+[7m9[0m   const reservationService = new ReservationService(reservationRepository, donorRepository);
+[7m [0m [91m                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/modules/reservation/reservation.factory.ts[0m:[93m10[0m:[93m59[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m10[0m   const reservationController = new ReservationController(reservationService);
+[7m  [0m [91m                                                          ~~~~~~~~~~~~~~~~~~[0m
+
+    at createTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.require.extensions.<computed> [as .ts] (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-08-13T04:21:11.408Z] [31MERROR[39M: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/modules/reservation/reservation.factory.ts[0m:[93m9[0m:[93m53[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 2.
+
+[7m9[0m   const reservationService = new ReservationService(reservationRepository, donorRepository);
+[7m [0m [91m                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/modules/reservation/reservation.factory.ts[0m:[93m9[0m:[93m53[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 2.
+
+[7m9[0m   const reservationService = new ReservationService(reservationRepository, donorRepository);
+[7m [0m [91m                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+    at createTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.require.extensions.<computed> [as .ts] (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-08-13T04:22:19.238Z] [31MERROR[39M: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/modules/location/location.controller.ts[0m:[93m9[0m:[93m28[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 0.
+
+[7m9[0m     this.locationService = new LocationService();
+[7m [0m [91m                           ~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/modules/location/location.service.ts[0m:[93m6[0m:[93m15[0m
+    [7m6[0m   constructor(private locationRepository: LocationRepository) {}
+    [7m [0m [96m              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    An argument for 'locationRepository' was not provided.
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/modules/location/location.controller.ts[0m:[93m9[0m:[93m28[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 0.
+
+[7m9[0m     this.locationService = new LocationService();
+[7m [0m [91m                           ~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/modules/location/location.service.ts[0m:[93m6[0m:[93m15[0m
+    [7m6[0m   constructor(private locationRepository: LocationRepository) {}
+    [7m [0m [96m              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    An argument for 'locationRepository' was not provided.
+
+    at createTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.require.extensions.<computed> [as .ts] (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-08-13T04:22:40.203Z] [31MERROR[39M: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/modules/location/location.routes.ts[0m:[93m6[0m:[93m28[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 0.
+
+[7m6[0m const locationController = new LocationController();
+[7m [0m [91m                           ~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/modules/location/location.controller.ts[0m:[93m6[0m:[93m15[0m
+    [7m6[0m   constructor(private locationService: LocationService) {}
+    [7m [0m [96m              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    An argument for 'locationService' was not provided.
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/modules/location/location.routes.ts[0m:[93m6[0m:[93m28[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 0.
+
+[7m6[0m const locationController = new LocationController();
+[7m [0m [91m                           ~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96msrc/modules/location/location.controller.ts[0m:[93m6[0m:[93m15[0m
+    [7m6[0m   constructor(private locationService: LocationService) {}
+    [7m [0m [96m              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    An argument for 'locationService' was not provided.
+
+    at createTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1895:10
+    at Object.require.extensions.<computed> [as .ts] (/home/abdelrahman_aboalkhair/dev/workspace/donor-management-system/server/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)

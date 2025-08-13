@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const crypto_1 = __importDefault(require("crypto"));
 const AppError_1 = __importDefault(require("@/shared/errors/AppError"));
-const emailQueue_1 = __importDefault(require("@/infra/queues/emailQueue"));
 const sendEmail_1 = __importDefault(require("@/shared/utils/sendEmail"));
 const passwordReset_1 = __importDefault(require("@/shared/templates/passwordReset"));
 const authUtils_1 = require("@/shared/utils/authUtils");
@@ -34,29 +33,11 @@ class AuthService {
             if (existingUser) {
                 throw new BadRequestError_1.default("This email is already registered, please log in instead.");
             }
-            const emailVerificationToken = Math.random()
-                .toString(36)
-                .slice(-6)
-                .toUpperCase();
-            const emailVerificationTokenExpiresAt = new Date(Date.now() + 10 * 60 * 1000);
             const newUser = yield this.authRepository.createUser({
                 email,
                 name,
                 password,
-                emailVerificationToken,
-                emailVerificationTokenExpiresAt,
                 role: role || client_1.ROLE.USER,
-                emailVerified: false,
-            });
-            yield emailQueue_1.default
-                .add("sendVerificationEmail", {
-                to: email,
-                subject: "Verify Your Email - EgWinch",
-                text: `Your verification code is: ${emailVerificationToken}`,
-                html: `<p>Your verification code is: <strong>${emailVerificationToken}</strong></p>`,
-            })
-                .catch((error) => {
-                console.error("Failed to add email to queue:", error);
             });
             const accessToken = authUtils_1.tokenUtils.generateAccessToken(newUser.id);
             const refreshToken = authUtils_1.tokenUtils.generateRefreshToken(newUser.id);
@@ -71,31 +52,6 @@ class AuthService {
                 accessToken,
                 refreshToken,
             };
-        });
-    }
-    sendVerificationEmail(email) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const user = yield this.authRepository.findUserByEmail(email);
-            if (!user) {
-                throw new AppError_1.default(404, "User not found");
-            }
-            const emailVerificationToken = Math.random().toString(36).slice(-6);
-            const emailVerificationTokenExpiresAt = new Date(Date.now() + 10 * 60 * 1000);
-            yield this.authRepository.updateUserEmailVerification(user.id, {
-                emailVerificationToken,
-                emailVerificationTokenExpiresAt,
-            });
-            yield emailQueue_1.default
-                .add("sendVerificationEmail", {
-                to: email,
-                subject: "Verify Your Email - KgKraft",
-                text: `Your verification code is: ${emailVerificationToken}`,
-                html: `<p>Your verification code is: <strong>${emailVerificationToken}</strong></p>`,
-            })
-                .catch((error) => {
-                console.error("Failed to add email to queue:", error);
-            });
-            return { message: "A new verification code has been sent to your email" };
         });
     }
     signin(_a) {
@@ -170,7 +126,6 @@ class AuthService {
                 throw new AppError_1.default(401, "Session expired. Please log in again.");
             }
             const user = yield this.authRepository.findUserById(decoded.id);
-            console.log("refreshed user: ", user);
             if (!user) {
                 throw new NotFoundError_1.default("User");
             }

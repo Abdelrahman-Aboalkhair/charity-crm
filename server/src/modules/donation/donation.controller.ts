@@ -11,19 +11,11 @@ export class DonationController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { deferral, ...donationData } = req.body;
+      const donationData = req.body;
       const userId = req.user?.id;
       const donation = await this.donationService.createDonation(
         donationData,
-        userId,
-        deferral
-          ? {
-              deferral_type: deferral.deferral_type,
-              start_date: new Date(deferral.start_date),
-              expected_end_date: new Date(deferral.expected_end_date),
-              notes: deferral.notes,
-            }
-          : undefined
+        userId
       );
       sendResponse(res, 201, {
         data: { donation },

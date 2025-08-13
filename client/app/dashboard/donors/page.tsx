@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Plus, Edit, Trash2, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,12 +12,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useGetDonorsQuery, useDeleteDonorMutation } from "@/store/api";
-import { Donor } from "@/store/api";
 
 export default function DonorsPage() {
-  const [selectedDonor, setSelectedDonor] = useState<Donor | null>(null);
-  const { data: donors, isLoading, error } = useGetDonorsQuery();
+  const { data: donorsData, isLoading, error } = useGetDonorsQuery({ page: 1, limit: 100 });
   const [deleteDonor] = useDeleteDonorMutation();
+
+  const donors = donorsData?.donors || [];
 
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this donor?")) {
@@ -83,7 +82,7 @@ export default function DonorsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>All Donors ({donors?.length || 0})</CardTitle>
+          <CardTitle>All Donors ({donorsData?.total || 0})</CardTitle>
         </CardHeader>
         <CardContent>
           {donors && donors.length > 0 ? (
@@ -94,7 +93,7 @@ export default function DonorsPage() {
                   <TableHead>Gender</TableHead>
                   <TableHead>Phone</TableHead>
                   <TableHead>Email</TableHead>
-                  <TableHead>Location</TableHead>
+                  <TableHead>City</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Actions</TableHead>
                 </TableRow>

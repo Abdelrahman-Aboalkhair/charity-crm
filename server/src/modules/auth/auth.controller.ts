@@ -49,7 +49,6 @@ export class AuthController {
     });
 
     res.cookie("refreshToken", refreshToken, clearCookieOptions);
-    res.cookie("accessToken", accessToken, clearCookieOptions);
 
     sendResponse(res, 200, {
       data: {
@@ -58,6 +57,7 @@ export class AuthController {
           role: user.role,
           avatar: user.avatar,
         },
+        token: accessToken,
       },
       message: "User logged in successfully",
     });

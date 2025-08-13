@@ -13,11 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LocationController = void 0;
-const location_service_1 = require("./location.service");
 const sendResponse_1 = __importDefault(require("@/shared/utils/sendResponse"));
 class LocationController {
-    constructor() {
-        this.locationService = new location_service_1.LocationService();
+    constructor(locationService) {
+        this.locationService = locationService;
     }
     createLocation(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {

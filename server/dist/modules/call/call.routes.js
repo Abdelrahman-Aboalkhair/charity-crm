@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const call_controller_1 = require("./call.controller");
 const protect_1 = __importDefault(require("@/shared/middlewares/protect"));
+const call_factory_1 = require("./call.factory");
 const router = (0, express_1.Router)();
-const callController = new call_controller_1.CallController();
+const callController = (0, call_factory_1.makeCallController)();
 router.post("/", protect_1.default, (req, res, next) => callController.logCall(req, res, next));
 router.get("/:id", protect_1.default, (req, res, next) => callController.getCallById(req, res, next));
 router.get("/", protect_1.default, (req, res, next) => callController.getCalls(req, res, next));

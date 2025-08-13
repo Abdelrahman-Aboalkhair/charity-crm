@@ -8,7 +8,6 @@ datasource db {
 }
 
 enum ROLE {
-  SUPERADMIN
   ADMIN
   USER
 }
@@ -24,19 +23,11 @@ enum DONATION_STATUS {
   REJECTED
 }
 
-enum DEFERRAL_STATUS {
-  ACTIVE
-  INACTIVE
-}
-
 model User {
   id                          String        @id @default(uuid())
   name                        String
   email                       String        @unique
   role                        ROLE
-  googleId                    String?       @unique
-  facebookId                  String?       @unique
-  twitterId                   String?       @unique
   avatar                      String?
   password                    String?
   resetPasswordToken          String?
@@ -45,7 +36,7 @@ model User {
   updatedAt                   DateTime      @updatedAt
   calls                       Call[]
   reservations                Reservation[]
-  Donation                    Donation[]
+  donations                   Donation[]
 }
 
 model Donor {
@@ -53,69 +44,44 @@ model Donor {
   name               String
   gender             GENDER
   phone_number1      String?
-  network_provider1  String?
   phone_number2      String?
-  network_provider2  String?
   dob                DateTime?
   email              String?   @unique
   job_title          String?
-  job_details        String?
   province           String?
   city               String?
   area               String?
-  donor_conditions   String?
-  ready_to_volunteer Boolean   @default(false)
-  permanent_deferral Boolean   @default(false)
   isActive           Boolean   @default(true)
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
 
-  location     Location?       @relation(fields: [location_id], references: [id])
-  location_id  String?
-  calls        Call[]
-  reservations Reservation[]
-  donations    Donation[]
-  deferrals    DonorDeferral[]
+  location_id        String?
+  calls              Call[]
+  reservations       Reservation[]
+  donations          Donation[]
 }
 
 model Donation {
   id                 String          @id @default(uuid())
-  donor              Donor           @relation(fields: [donor_id], references: [id])
   donor_id           String
-  location           Location?       @relation(fields: [location_id], references: [id])
+  donor              Donor           @relation(fields: [donor_id], references: [id])
   location_id        String?
-  deferral           DonorDeferral?  @relation(fields: [deferral_id], references: [id])
-  deferral_id        String?         @unique
-  created_by_user    User?           @relation(fields: [created_by_user_id], references: [id])
   created_by_user_id String?
+  created_by_user    User?           @relation(fields: [created_by_user_id], references: [id])
   date               DateTime
   status             DONATION_STATUS @default(PENDING)
-}
-
-model DonorDeferral {
-  id                String          @id @default(uuid())
-  donor             Donor           @relation(fields: [donor_id], references: [id])
-  donor_id          String
-  donations         Donation[]
-  donation_id       String?         @unique
-  deferral_type     String
-  start_date        DateTime
-  expected_end_date DateTime
-  status            DEFERRAL_STATUS @default(ACTIVE)
-  notes             String?
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
+  notes              String?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
 }
 
 model Call {
   id                String       @id @default(uuid())
-  donor             Donor        @relation(fields: [donor_id], references: [id])
   donor_id          String
-  called_by_user    User         @relation(fields: [called_by_user_id], references: [id])
+  donor             Donor        @relation(fields: [donor_id], references: [id])
   called_by_user_id String
+  called_by_user    User         @relation(fields: [called_by_user_id], references: [id])
   call_date         DateTime
-  reservation       Reservation? @relation(fields: [reservation_id], references: [id])
-  reservation_id    String?      @unique
   outcome           String
   notes             String?
   createdAt         DateTime     @default(now())
@@ -124,17 +90,15 @@ model Call {
 
 model Reservation {
   id                  String   @id @default(uuid())
-  donor               Donor    @relation(fields: [donor_id], references: [id])
   donor_id            String
-  reserved_by_user    User     @relation(fields: [reserved_by_user_id], references: [id])
+  donor               Donor    @relation(fields: [donor_id], references: [id])
   reserved_by_user_id String
+  reserved_by_user    User     @relation(fields: [reserved_by_user_id], references: [id])
   expires_at          DateTime
   status              String   @default("ACTIVE")
   notes               String?
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
-
-  call Call?
 }
 
 model Location {
@@ -143,15 +107,4 @@ model Location {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  donors    Donor[]
-  donations Donation[]
-}
-
-model Log {
-  id        String   @id @default(uuid())
-  level     String // e.g., "info", "error", "warn", "debug"
-  message   String
-  context   Json? // Optional: Additional data (e.g., userId, request details)
-  createdAt DateTime @default(now())
 }

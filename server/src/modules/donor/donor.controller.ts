@@ -63,17 +63,11 @@ export class DonorController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const {
-        page = "1",
-        limit = "10",
-        search,
-        onlyActive = false,
-      } = req.query;
+      const { page = "1", limit = "10", search } = req.query;
       const result = await this.donorService.getDonors({
         page: parseInt(page as string),
         limit: parseInt(limit as string),
         search: search as string,
-        onlyActive: onlyActive === "true",
       });
       sendResponse(res, 200, {
         data: { donors: result.donors, total: result.total },

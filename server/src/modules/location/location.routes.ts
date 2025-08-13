@@ -1,9 +1,9 @@
 import { Router } from "express";
 import protect from "@/shared/middlewares/protect";
-import { LocationController } from "./location.controller";
+import { makeLocationController } from "./location.factory";
 
 const router = Router();
-const locationController = new LocationController();
+const locationController = makeLocationController();
 
 router.post("/", protect, (req, res, next) =>
   locationController.createLocation(req, res, next)

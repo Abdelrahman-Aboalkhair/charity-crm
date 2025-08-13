@@ -65,14 +65,6 @@ class AuthRepository {
             });
         });
     }
-    updateUserEmailVerification(userId, data) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return database_config_1.default.user.update({
-                where: { id: userId },
-                data,
-            });
-        });
-    }
     updateUserPasswordReset(email, data) {
         return __awaiter(this, void 0, void 0, function* () {
             return database_config_1.default.user.update({
