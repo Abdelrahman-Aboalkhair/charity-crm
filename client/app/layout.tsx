@@ -1,29 +1,23 @@
-import { Cairo } from "next/font/google";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import StoreProvider from "./StoreProvider";
+import { StoreProvider } from "./StoreProvider";
 
-const cairo = Cairo({
-  variable: "--font-cairo",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "Donor management system",
-  description: "A specialized system for managing donors.",
-  icons: {
-    icon: "/kgKraftLogo.png",
-  },
+export const metadata: Metadata = {
+  title: "Donor Management System",
+  description: "A comprehensive donor management and charity CRM system",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en">
-      <body className={`${cairo.variable} antialiased`}>
+      <body className={inter.className}>
         <StoreProvider>{children}</StoreProvider>
       </body>
     </html>

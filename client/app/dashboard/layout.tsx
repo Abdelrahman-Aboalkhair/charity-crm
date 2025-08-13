@@ -1,25 +1,21 @@
 "use client";
-import BreadCrumb from "@/app/components/feedback/BreadCrumb";
-import Sidebar from "../components/layout/Sidebar";
+import { Sidebar } from '@/components/layout/Sidebar'
+import { Header } from '@/components/layout/Header'
 
 export default function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-gray-100">
       <Sidebar />
-
-      <div className="flex-1 flex flex-col">
-        <header className="flex items-center justify-between p-4 border-b border-gray-200 bg-white">
-          <BreadCrumb />
-        </header>
-
-        <div className="px-4"></div>
-
-        <main className="flex-1 p-2 overflow-y-auto">{children}</main>
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <Header />
+        <main className="flex-1 overflow-y-auto p-6">
+          {children}
+        </main>
       </div>
     </div>
-  );
+  )
 }

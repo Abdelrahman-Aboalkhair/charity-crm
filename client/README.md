@@ -1,36 +1,133 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Donor Management System - Frontend
+
+A modern, responsive dashboard for managing donors, donations, calls, and reservations built with Next.js, Redux Toolkit, and shadcn/ui components.
+
+## Features
+
+- **Dashboard Overview**: Statistics and recent activity
+- **Donor Management**: Complete CRUD operations for donors
+- **Donation Tracking**: Manage donation status and history
+- **Call Management**: Track donor communication
+- **Reservation System**: Appointment scheduling
+- **Location Management**: Manage donation centers
+- **Responsive Design**: Works on desktop and mobile
+- **Real-time Data**: RTK Query for efficient data fetching
+
+## Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **State Management**: Redux Toolkit with RTK Query
+- **UI Components**: shadcn/ui (Radix UI + Tailwind CSS)
+- **Icons**: Lucide React
+- **Styling**: Tailwind CSS v4
+- **TypeScript**: Full type safety
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- Backend server running (see server README)
+
+### Installation
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Set up environment variables:
+
+```bash
+# Create .env.local file
+NEXT_PUBLIC_API_URL=http://localhost:3001/api
+```
+
+3. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+├── components/
+│   ├── ui/           # shadcn/ui components
+│   └── layout/       # Layout components
+├── dashboard/        # Dashboard pages
+│   ├── donors/       # Donor management
+│   ├── donations/    # Donation tracking
+│   ├── calls/        # Call management
+│   ├── reservations/ # Appointment scheduling
+│   ├── locations/    # Location management
+│   └── settings/     # User settings
+├── store/           # Redux store and API
+└── lib/             # Utility functions
+```
 
-## Learn More
+## API Integration
 
-To learn more about Next.js, take a look at the following resources:
+The frontend integrates with your backend API using RTK Query. All API calls are automatically cached and synchronized across components.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Available Endpoints
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Donors**: `/api/donors`
+- **Donations**: `/api/donations`
+- **Calls**: `/api/calls`
+- **Reservations**: `/api/reservations`
+- **Locations**: `/api/locations`
 
-## Deploy on Vercel
+## Development
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Adding New Components
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Create components in `app/components/ui/` for reusable UI elements
+2. Use shadcn/ui patterns for consistency
+3. Export components with proper TypeScript types
+
+### Adding New Pages
+
+1. Create pages in `app/dashboard/`
+2. Use the existing layout structure
+3. Implement proper loading and error states
+4. Add to the sidebar navigation
+
+### Styling
+
+- Use Tailwind CSS classes for styling
+- Follow the design system defined in `globals.css`
+- Use CSS variables for consistent theming
+
+## Deployment
+
+### Build for Production
+
+```bash
+npm run build
+npm start
+```
+
+### Environment Variables
+
+Make sure to set the correct API URL for production:
+
+```bash
+NEXT_PUBLIC_API_URL=https://your-api-domain.com/api
+```
+
+## Contributing
+
+1. Follow the existing code patterns
+2. Use TypeScript for all new code
+3. Test your changes thoroughly
+4. Update documentation as needed
+
+## License
+
+This project is part of the Donor Management System.

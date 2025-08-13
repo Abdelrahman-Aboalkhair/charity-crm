@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { Plus, Edit, Trash2, Eye } from "lucide-react";
+import { Plus, Edit, Trash2, Eye, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -12,20 +11,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useGetDonorsQuery, useDeleteDonorMutation } from "@/store/api";
-import { Donor } from "@/store/api";
+import { useGetLocationsQuery, useDeleteLocationMutation } from "@/store/api";
 
-export default function DonorsPage() {
-  const [selectedDonor, setSelectedDonor] = useState<Donor | null>(null);
-  const { data: donors, isLoading, error } = useGetDonorsQuery();
-  const [deleteDonor] = useDeleteDonorMutation();
+export default function LocationsPage() {
+  const { data: locations, isLoading, error } = useGetLocationsQuery();
+  const [deleteLocation] = useDeleteLocationMutation();
 
   const handleDelete = async (id: string) => {
-    if (confirm("Are you sure you want to delete this donor?")) {
+    if (confirm("Are you sure you want to delete this location?")) {
       try {
-        await deleteDonor(id).unwrap();
+        await deleteLocation(id).unwrap();
       } catch (error) {
-        console.error("Failed to delete donor:", error);
+        console.error("Failed to delete location:", error);
       }
     }
   };
@@ -35,13 +32,15 @@ export default function DonorsPage() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Donors</h1>
-            <p className="text-gray-600">Manage your donor database</p>
+            <h1 className="text-3xl font-bold text-gray-900">Locations</h1>
+            <p className="text-gray-600">
+              Manage donation centers and locations
+            </p>
           </div>
         </div>
         <Card>
           <CardContent className="p-6">
-            <div className="text-center py-8">Loading donors...</div>
+            <div className="text-center py-8">Loading locations...</div>
           </CardContent>
         </Card>
       </div>
@@ -53,14 +52,16 @@ export default function DonorsPage() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Donors</h1>
-            <p className="text-gray-600">Manage your donor database</p>
+            <h1 className="text-3xl font-bold text-gray-900">Locations</h1>
+            <p className="text-gray-600">
+              Manage donation centers and locations
+            </p>
           </div>
         </div>
         <Card>
           <CardContent className="p-6">
             <div className="text-center py-8 text-red-600">
-              Error loading donors
+              Error loading locations
             </div>
           </CardContent>
         </Card>
@@ -72,51 +73,46 @@ export default function DonorsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Donors</h1>
-          <p className="text-gray-600">Manage your donor database</p>
+          <h1 className="text-3xl font-bold text-gray-900">Locations</h1>
+          <p className="text-gray-600">Manage donation centers and locations</p>
         </div>
         <Button>
           <Plus className="h-4 w-4 mr-2" />
-          Add Donor
+          Add Location
         </Button>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>All Donors ({donors?.length || 0})</CardTitle>
+          <CardTitle>All Locations ({locations?.length || 0})</CardTitle>
         </CardHeader>
         <CardContent>
-          {donors && donors.length > 0 ? (
+          {locations && locations.length > 0 ? (
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>Name</TableHead>
-                  <TableHead>Gender</TableHead>
-                  <TableHead>Phone</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Location</TableHead>
-                  <TableHead>Status</TableHead>
+                  <TableHead>Type</TableHead>
+                  <TableHead>Created At</TableHead>
                   <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {donors.map((donor) => (
-                  <TableRow key={donor.id}>
-                    <TableCell className="font-medium">{donor.name}</TableCell>
-                    <TableCell>{donor.gender}</TableCell>
-                    <TableCell>{donor.phone_number1 || "N/A"}</TableCell>
-                    <TableCell>{donor.email || "N/A"}</TableCell>
-                    <TableCell>{donor.city || "N/A"}</TableCell>
+                {locations.map((location) => (
+                  <TableRow key={location.id}>
+                    <TableCell className="font-medium">
+                      <div className="flex items-center space-x-2">
+                        <MapPin className="h-4 w-4 text-gray-400" />
+                        <span>{location.name}</span>
+                      </div>
+                    </TableCell>
                     <TableCell>
-                      <span
-                        className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          donor.isActive
-                            ? "bg-green-100 text-green-800"
-                            : "bg-red-100 text-red-800"
-                        }`}
-                      >
-                        {donor.isActive ? "Active" : "Inactive"}
+                      <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        {location.type}
                       </span>
+                    </TableCell>
+                    <TableCell>
+                      {new Date(location.createdAt).toLocaleDateString()}
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center space-x-2">
@@ -129,7 +125,7 @@ export default function DonorsPage() {
                         <Button
                           variant="ghost"
                           size="icon"
-                          onClick={() => handleDelete(donor.id)}
+                          onClick={() => handleDelete(location.id)}
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -141,7 +137,7 @@ export default function DonorsPage() {
             </Table>
           ) : (
             <div className="text-center py-8 text-gray-500">
-              No donors found. Add your first donor to get started.
+              No locations found. Add your first location to get started.
             </div>
           )}
         </CardContent>

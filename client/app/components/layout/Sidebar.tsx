@@ -1,129 +1,70 @@
-"use client";
-import React, { useMemo, useState } from "react";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+'use client'
 
-import {
-  LayoutDashboard,
-  Users,
-  PanelsRightBottom,
-  PhoneCall,
-  CalendarCheck,
-  HandCoins,
-} from "lucide-react";
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { cn } from '@/lib/utils'
+import { 
+  Users, 
+  Heart, 
+  Phone, 
+  Calendar, 
+  MapPin, 
+  BarChart3,
+  Settings,
+  LogOut
+} from 'lucide-react'
 
-const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const pathname = usePathname();
+const navigation = [
+  { name: 'Dashboard', href: '/dashboard', icon: BarChart3 },
+  { name: 'Donors', href: '/dashboard/donors', icon: Users },
+  { name: 'Donations', href: '/dashboard/donations', icon: Heart },
+  { name: 'Calls', href: '/dashboard/calls', icon: Phone },
+  { name: 'Reservations', href: '/dashboard/reservations', icon: Calendar },
+  { name: 'Locations', href: '/dashboard/locations', icon: MapPin },
+  { name: 'Settings', href: '/dashboard/settings', icon: Settings },
+]
 
-  const sections = useMemo(
-    () => [
-      {
-        title: "Overview",
-        links: [
-          { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-        ],
-      },
-      {
-        title: "Donor Management",
-        links: [
-          { name: "Donors", href: "/donors", icon: Users },
-          { name: "Calls", href: "/calls", icon: PhoneCall },
-          { name: "Reservations", href: "/reservations", icon: CalendarCheck },
-        ],
-      },
-      {
-        title: "Donations",
-        links: [{ name: "Donations", href: "/donations", icon: HandCoins }],
-      },
-    ],
-    []
-  );
-
-  const prependDashboard = (href: string) =>
-    href.startsWith("/dashboard") ? href : `/dashboard${href}`;
-
-  const SidebarLink = ({
-    name,
-    href,
-    Icon,
-  }: {
-    name: string;
-    href: string;
-    Icon: React.ElementType;
-  }) => {
-    const fullHref = prependDashboard(href);
-    const isActive = pathname === fullHref;
-
-    return (
-      <Link
-        href={fullHref}
-        className={`relative group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 ${
-          isActive
-            ? "bg-indigo-100 text-indigo-600 font-medium shadow-sm"
-            : "text-gray-600 hover:bg-gray-100"
-        }`}
-      >
-        <motion.div whileHover={{ scale: 1.1 }}>
-          <Icon
-            className={`h-5 w-5 transition ${
-              isActive ? "text-indigo-600" : "group-hover:text-black"
-            }`}
-          />
-        </motion.div>
-        {isOpen && <span className="text-sm">{name}</span>}
-      </Link>
-    );
-  };
+export function Sidebar() {
+  const pathname = usePathname()
 
   return (
-    <motion.aside
-      initial={{ width: 80 }}
-      animate={{
-        width: isOpen ? 260 : 80,
-        transition: { duration: 0.3, ease: "easeInOut" },
-      }}
-      className="bg-white border-r border-gray-200 shadow-lg min-h-fit flex flex-col p-4 justify-between"
-    >
-      <div>
-        <div className="flex items-center justify-between my-4">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="p-2 flex items-center justify-end rounded-lg transition"
-          >
-            <PanelsRightBottom size={24} className="text-gray-700" />
-          </button>
-        </div>
-
-        {/* Navigation */}
-        <nav className="flex flex-col space-y-2">
-          {sections.map((section, idx) => (
-            <div key={section.title} className="mb-2">
-              {isOpen && (
-                <h3 className="text-xs font-medium uppercase tracking-wider text-gray-400 ml-4 mb-2">
-                  {section.title}
-                </h3>
-              )}
-              <div className="space-y-1">
-                {section.links.map((link) => (
-                  <SidebarLink
-                    key={link.name}
-                    name={link.name}
-                    href={link.href}
-                    Icon={link.icon}
-                  />
-                ))}
-              </div>
-              {idx < sections.length - 1 && (
-                <hr className="my-3 border-t border-gray-200" />
-              )}
-            </div>
-          ))}
-        </nav>
+    <div className="flex h-full w-64 flex-col bg-gray-900">
+      <div className="flex h-16 items-center justify-center border-b border-gray-800">
+        <h1 className="text-xl font-bold text-white">Donor Management</h1>
       </div>
-    </motion.aside>
-  );
-};
-
-export default Sidebar;
+      
+      <nav className="flex-1 space-y-1 px-2 py-4">
+        {navigation.map((item) => {
+          const isActive = pathname === item.href
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={cn(
+                'group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors',
+                isActive
+                  ? 'bg-gray-800 text-white'
+                  : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+              )}
+            >
+              <item.icon
+                className={cn(
+                  'mr-3 h-5 w-5 flex-shrink-0',
+                  isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'
+                )}
+              />
+              {item.name}
+            </Link>
+          )
+        })}
+      </nav>
+      
+      <div className="border-t border-gray-800 p-4">
+        <button className="flex w-full items-center px-2 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors">
+          <LogOut className="mr-3 h-5 w-5 text-gray-400" />
+          Logout
+        </button>
+      </div>
+    </div>
+  )
+}

@@ -1,20 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
-import toastReducer from "./slices/ToastSlice";
-import { apiSlice } from "./slices/ApiSlice";
+import { configureStore } from '@reduxjs/toolkit'
+import { api } from './api'
 
 export const store = configureStore({
   reducer: {
-    toasts: toastReducer,
-    [apiSlice.reducerPath]: apiSlice.reducer,
+    [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }).concat(apiSlice.middleware),
-  devTools: process.env.NODE_ENV !== "production",
-  preloadedState: {},
-});
+    getDefaultMiddleware().concat(api.middleware),
+})
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-export type AppStore = typeof store;
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
